@@ -1,19 +1,38 @@
-const skills = [
-  "Dynamisk RAG-infrastruktur",
-  "Multi-agent orkestrering",
-  "Agentic Data Lakehouse",
-  "LLM-optimalisering & prompt-design",
-  "Vektordatabaser & embedding-pipelines",
-  "Automasjon med kommersiell intent",
-  "MCP-server & tool-use arkitektur",
-  "AI-drevet innholdspipeline",
-  "Multisystem-integrasjon via MCP / API / CLI",
-  "Kontekststyrt agent-minne & state management",
-  "Observability & evalueringsrammeverk",
-  "Skalerbar serverless AI-infrastruktur",
-  "SEO-, AIO- & GEO-optimalisering",
-  "AI-drevet systemarkitektur",
-  "Kommersiell vekstinfrastruktur",
+import SectionEyebrow from "./SectionEyebrow";
+
+const groups = [
+  {
+    label: "Infrastruktur",
+    items: [
+      "Dynamisk RAG-infrastruktur",
+      "Agentic Data Lakehouse",
+      "Vektordatabaser & embedding-pipelines",
+      "Skalerbar serverless AI-infrastruktur",
+      "AI-drevet systemarkitektur",
+    ],
+  },
+  {
+    label: "Agentarkitektur",
+    items: [
+      "Multi-agent orkestrering",
+      "LLM-optimalisering & prompt-design",
+      "MCP-server & tool-use arkitektur",
+      "Kontekststyrt agent-minne & state management",
+      "Observability & evalueringsrammeverk",
+    ],
+  },
+  {
+    label: "Integrasjon",
+    items: [
+      "Multisystem-integrasjon via MCP / API / CLI",
+      "Automasjon med kommersiell intent",
+      "AI-drevet innholdspipeline",
+    ],
+  },
+  {
+    label: "Vekst",
+    items: ["SEO-, AIO- & GEO-optimalisering", "Kommersiell vekstinfrastruktur"],
+  },
 ];
 
 export default function Skills() {
@@ -22,15 +41,13 @@ export default function Skills() {
       <div className="mx-auto max-w-[1180px]">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
           <div>
-            <p className="text-[13px] font-medium tracking-wide text-[var(--cyan)]">
-              Dette leverer vi
-            </p>
-            <h2 className="mt-3 text-[36px] font-semibold sm:text-[44px]">
+            <SectionEyebrow label="Dette leverer vi" />
+            <h2 className="mt-4 text-[36px] font-semibold sm:text-[44px]">
               Teknologien under panseret.
             </h2>
           </div>
-          <div className="border-l border-[var(--brd)] pl-7">
-            <p className="text-[15px] leading-[1.7] text-[var(--w45)]">
+          <div className="border-l border-[var(--line)] pl-7">
+            <p className="text-[15px] leading-[1.7] text-[var(--ink-45)]">
               Vi kombinerer avanserte datamodeller med kommersiell forståelse. Det tekniske er
               aldri et mål i seg selv — det er det som gjør at løsningene skalerer, integrerer
               og leverer verdi over tid.
@@ -38,16 +55,22 @@ export default function Skills() {
           </div>
         </div>
 
-        <div className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-[var(--brd)] sm:grid-cols-3 lg:grid-cols-5">
-          {skills.map((skill) => (
-            <div
-              key={skill}
-              className="group flex items-center gap-2.5 bg-[var(--bg-2)] p-5 transition-colors hover:bg-[var(--bg-3)]"
-            >
-              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--cyan)] opacity-45 transition-opacity group-hover:opacity-100" />
-              <span className="text-[13.5px] leading-[1.4] text-[var(--w45)] transition-colors group-hover:text-[var(--w100)]">
-                {skill}
-              </span>
+        <div className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-2">
+          {groups.map((group) => (
+            <div key={group.label}>
+              <p className="border-b border-[var(--line)] pb-3 font-mono text-[12px] uppercase tracking-[0.14em] text-[var(--chalk)]">
+                {group.label}
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-sm border border-[var(--line)] px-3 py-1.5 text-[13.5px] leading-[1.4] text-[var(--ink-70)] transition-colors hover:border-[var(--chalk-brd)] hover:text-ink"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
           ))}
         </div>
