@@ -23,7 +23,7 @@ export default function Skills() {
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
           <div>
             <p className="text-[13px] font-medium tracking-wide text-[var(--cyan)]">
-              Kompetanse
+              Dette leverer vi
             </p>
             <h2 className="mt-3 text-[36px] font-semibold sm:text-[44px]">
               Teknologien under panseret.

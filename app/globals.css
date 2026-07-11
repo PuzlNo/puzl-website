@@ -50,8 +50,10 @@ h1, h2, h3, h4 {
   letter-spacing: -0.02em;
 }
 
-a {
-  color: inherit;
+@layer base {
+  a {
+    color: inherit;
+  }
 }
 
 @keyframes pulse-dot {

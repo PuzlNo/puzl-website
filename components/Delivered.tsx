@@ -1,32 +1,31 @@
 const cards = [
   {
-    index: "01",
+    index: "1",
     title: "Innholdsagent",
     text: "AI som skriver, kvalitetssikrer og publiserer produkttekster og kategorisider automatisk — tilpasset merkevare, tone og SEO-krav.",
   },
   {
-    index: "02",
+    index: "2",
     title: "Kunnskapsplattform",
     text: "Intern AI med tilgang til produkter, videoer og dokumentasjon — svarer ansatte og kunder i sanntid med presis, kontekstuell informasjon.",
   },
   {
-    index: "03",
+    index: "3",
     title: "Serviceagent",
     text: "Autonom kundeservice integrert mot ordresystem og FAQ — håndterer henvendelser selvstendig og eskalerer til menneske når nødvendig.",
   },
   {
-    index: "04",
+    index: "4",
     title: "Innholdspipeline",
     text: "Automatisert SEO-produksjon fra søkedata til publisert innhold — uten manuell innsats. Henter søkeintensjoner, genererer innhold og sender direkte til CMS.",
-    span: true,
   },
   {
-    index: "05",
+    index: "5",
     title: "Logistikkagent",
     text: "AI som overvåker, koordinerer og optimaliserer logistikkflyt — integrert mot lagersystem og leverandører for sanntidsstyring.",
   },
   {
-    index: "06",
+    index: "6",
     title: "Markedsføringsagent",
     text: "Autonom agent som planlegger, produserer og distribuerer kampanjeinnhold på tvers av kanaler — basert på målgruppe, sesong og ytelsesdata.",
   },
@@ -49,9 +48,7 @@ export default function Delivered() {
           {cards.map((card) => (
             <div
               key={card.index}
-              className={`group relative overflow-hidden rounded-2xl border border-[var(--brd)] bg-[var(--bg-2)] p-7 transition-colors hover:bg-[var(--bg-3)] ${
-                card.span ? "lg:col-span-2" : ""
-              }`}
+              className="group relative overflow-hidden rounded-2xl border border-[var(--brd)] bg-[var(--bg-2)] p-7 transition-colors hover:bg-[var(--bg-3)]"
             >
               <div
                 className="pointer-events-none absolute inset-x-0 bottom-0 h-px scale-x-0 bg-[var(--cyan)] opacity-0 transition-all duration-300 group-hover:scale-x-100 group-hover:opacity-60"
