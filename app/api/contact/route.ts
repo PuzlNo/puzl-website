@@ -17,7 +17,7 @@ export async function POST(request: Request) {
   const to = process.env.CONTACT_EMAIL ?? "hei@puzl.no";
 
   const { error } = await resend.emails.send({
-    from: "Puzl <onboarding@resend.dev>",
+    from: "Puzl <kontakt@puzl.no>",
     to,
     replyTo: email,
     subject: `Ny henvendelse fra puzl.no — ${navn}`,
@@ -25,6 +25,7 @@ export async function POST(request: Request) {
   });
 
   if (error) {
+    console.error("Resend error:", error);
     return NextResponse.json({ error: "Kunne ikke sende meldingen" }, { status: 500 });
   }
 
