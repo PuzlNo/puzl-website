@@ -52,16 +52,43 @@ export default function Contact() {
           <div className="mt-8 flex flex-col gap-3">
             <a
               href="mailto:hei@puzl.no"
-              className="text-[15px] text-[var(--w70)] hover:text-[var(--w100)] transition-colors"
+              className="flex items-center gap-2.5 text-[15px] text-[var(--w70)] hover:text-[var(--w100)] transition-colors"
             >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="m22 6-10 7L2 6" />
+              </svg>
               hei@puzl.no
             </a>
             <a
               href="https://linkedin.com/company/puzl"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[15px] text-[var(--w70)] hover:text-[var(--w100)] transition-colors"
+              className="flex items-center gap-2.5 text-[15px] text-[var(--w70)] hover:text-[var(--w100)] transition-colors"
             >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6Z" />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
               LinkedIn
             </a>
           </div>

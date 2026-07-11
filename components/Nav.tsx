@@ -10,13 +10,13 @@ export default function Nav() {
 
         <nav className="hidden [@media(min-width:960px)]:flex items-center gap-8 text-sm text-[var(--w70)]">
           <a href="#levert" className="hover:text-[var(--w100)] transition-colors">
-            Levert
+            Hva vi har bygget
           </a>
           <a href="#tilnærming" className="hover:text-[var(--w100)] transition-colors">
-            Tilnærming
+            Hva vi gjør
           </a>
           <a href="#kompetanse" className="hover:text-[var(--w100)] transition-colors">
-            Kompetanse
+            Hva vi leverer
           </a>
           <a
             href="#kontakt"

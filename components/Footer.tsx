@@ -5,18 +5,7 @@ export default function Footer() {
         <p>© 2026 Puzl. Alle rettigheter forbeholdt.</p>
         <div className="flex items-center gap-6">
           <a href="#" className="hover:text-[var(--w100)] transition-colors">
-            Vilkår
-          </a>
-          <a href="#" className="hover:text-[var(--w100)] transition-colors">
             Personvern
-          </a>
-          <a
-            href="https://linkedin.com/company/puzl"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[var(--w100)] transition-colors"
-          >
-            LinkedIn
           </a>
         </div>
       </div>
