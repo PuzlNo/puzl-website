@@ -10,7 +10,7 @@ export default function Nav() {
   return (
     <header className="fixed top-0 inset-x-0 z-50 h-16 backdrop-blur-md bg-paper/85 border-b border-[var(--line)]">
       <div className="mx-auto h-full max-w-[1180px] px-6 flex items-center justify-between">
-        <a href="#" className="flex items-center rounded bg-ink px-3 py-2">
+        <a href="#" className="flex items-center">
           <Image src="/logo.svg" alt="Puzl" width={92} height={24} priority />
         </a>
 

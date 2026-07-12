@@ -4,10 +4,10 @@
 	</defs>
 	<style>
 		.s0 { fill: #000000 } 
-		.s1 { fill: #ffffff } 
+		.s1 { fill: #211E20 } 
 	</style>
 	<filter id="f0">
-		<feFlood flood-color="#22d3ee" flood-opacity="1" />
+		<feFlood flood-color="#BD8A1F" flood-opacity="1" />
 		<feBlend mode="normal" in2="SourceGraphic"/>
 		<feComposite in2="SourceAlpha" operator="in" />
 	</filter>

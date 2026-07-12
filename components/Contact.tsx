@@ -96,12 +96,19 @@ export default function Contact() {
               LinkedIn
             </a>
           </div>
+
+          <p className="mt-6 font-mono text-[12px] uppercase tracking-[0.1em] text-[var(--ink-45)]">
+            Vi svarer normalt innen 1–2 virkedager
+          </p>
         </div>
 
-        <div>
+        <div className="border border-[var(--line)] p-8 sm:p-10">
           {status === "success" ? (
-            <div className="border border-[var(--chalk-brd)] bg-[var(--chalk-dim)] p-8 text-[15px] leading-[1.6] text-ink">
-              Takk for din henvendelse! Vi tar kontakt så snart som mulig.
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--chalk)]">Mottatt</p>
+              <p className="mt-3 text-[15px] leading-[1.6] text-ink">
+                Takk for din henvendelse! Vi tar kontakt så snart som mulig.
+              </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
