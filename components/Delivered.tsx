@@ -1,5 +1,5 @@
+import GrainlineMark from "./GrainlineMark";
 import SectionEyebrow from "./SectionEyebrow";
-import TagChip from "./TagChip";
 
 const cards = [
   {
@@ -61,13 +61,18 @@ export default function Delivered() {
           {cards.map((card) => (
             <div
               key={card.title}
-              className="group relative overflow-hidden border border-[var(--line)] bg-paper p-7 transition-colors hover:bg-[var(--paper-3)]"
+              className="group relative overflow-hidden rounded-box border border-[var(--line)] bg-paper p-7 transition-colors hover:bg-[var(--paper-3)]"
             >
-              <div className="flex items-start justify-between">
-                <TagChip>{card.tag}</TagChip>
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <GrainlineMark size={18} className="shrink-0 text-[var(--chalk)]" />
+                  <h3 className="text-[18px] font-semibold">{card.title}</h3>
+                </div>
                 <RegistrationMark />
               </div>
-              <h3 className="mt-4 text-[18px] font-semibold">{card.title}</h3>
+              <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--chalk)]">
+                {card.tag}
+              </p>
               <p className="mt-2.5 text-[14.5px] leading-[1.6] text-[var(--ink-45)]">{card.text}</p>
             </div>
           ))}

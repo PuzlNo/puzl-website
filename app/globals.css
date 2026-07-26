@@ -33,6 +33,7 @@
   --font-display: var(--font-space-grotesk);
   --font-body: var(--font-work-sans);
   --font-mono: var(--font-plex-mono);
+  --radius-box: 20px;
 }
 
 * {

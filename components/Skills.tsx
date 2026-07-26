@@ -65,7 +65,7 @@ export default function Skills() {
                 {group.items.map((item) => (
                   <span
                     key={item}
-                    className="rounded-sm border border-[var(--line)] px-3 py-1.5 text-[13.5px] leading-[1.4] text-[var(--ink-70)] transition-colors hover:border-[var(--chalk-brd)] hover:text-ink"
+                    className="rounded-box border border-[var(--line)] bg-paper px-3 py-1.5 text-[13.5px] leading-[1.4] text-[var(--ink-70)] transition-colors hover:border-[var(--chalk-brd)] hover:text-ink"
                   >
                     {item}
                   </span>

@@ -1,5 +1,5 @@
+import GrainlineMark from "./GrainlineMark";
 import SectionEyebrow from "./SectionEyebrow";
-import TagChip from "./TagChip";
 
 const pillars = [
   {
@@ -37,16 +37,19 @@ export default function Approach() {
           leverer kommersiell verdi fra dag én.
         </p>
 
-        <div className="mt-16 grid grid-cols-1 border border-[var(--line-inverse)] sm:grid-cols-3">
-          {pillars.map((pillar, i) => (
+        <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          {pillars.map((pillar) => (
             <div
               key={pillar.title}
-              className={`p-8 ${
-                i !== 0 ? "border-t border-[var(--line-inverse)] sm:border-t-0 sm:border-l" : ""
-              }`}
+              className="rounded-box border border-[var(--line-inverse)] p-8"
             >
-              <TagChip>{pillar.tag}</TagChip>
-              <h3 className="mt-3 text-[17px] font-semibold">{pillar.title}</h3>
+              <div className="flex items-center gap-2.5">
+                <GrainlineMark size={18} className="shrink-0 text-[var(--chalk)]" />
+                <h3 className="text-[17px] font-semibold">{pillar.title}</h3>
+              </div>
+              <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--chalk)]">
+                {pillar.tag}
+              </p>
               <p className="mt-3 text-[14.5px] leading-[1.6] text-[var(--paper-45)]">{pillar.text}</p>
             </div>
           ))}
