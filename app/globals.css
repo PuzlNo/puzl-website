@@ -16,6 +16,11 @@
   --chalk-brd: rgba(189,138,31,0.35);
   --thread:   #2B4A6F;
   --error:    #A23B3B;
+
+  /* Muted text/line tones for use on the ink-block reversal (Approach). */
+  --paper-70: rgba(241,237,228,0.75);
+  --paper-45: rgba(241,237,228,0.50);
+  --line-inverse: rgba(241,237,228,0.18);
 }
 
 @theme inline {

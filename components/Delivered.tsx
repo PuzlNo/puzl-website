@@ -1,4 +1,5 @@
 import SectionEyebrow from "./SectionEyebrow";
+import TagChip from "./TagChip";
 
 const cards = [
   {
@@ -50,7 +51,7 @@ export default function Delivered() {
     <section id="levert" className="border-y border-[var(--line)] bg-paper-2 px-6 py-28">
       <div className="mx-auto max-w-[1180px]">
         <SectionEyebrow label="Løsninger vi har levert" />
-        <h2 className="mt-4 text-[36px] font-semibold sm:text-[44px]">Det vi har bygget.</h2>
+        <h2 className="mt-4 text-[36px] font-bold sm:text-[44px]">Det vi har bygget.</h2>
         <p className="mt-4 max-w-[560px] text-[16px] leading-[1.6] text-[var(--ink-45)]">
           Et utvalg av AI-systemer vi har designet, utviklet og satt i produksjon for reelle
           virksomheter.
@@ -63,9 +64,7 @@ export default function Delivered() {
               className="group relative overflow-hidden border border-[var(--line)] bg-paper p-7 transition-colors hover:bg-[var(--paper-3)]"
             >
               <div className="flex items-start justify-between">
-                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--chalk)]">
-                  {card.tag}
-                </span>
+                <TagChip>{card.tag}</TagChip>
                 <RegistrationMark />
               </div>
               <h3 className="mt-4 text-[18px] font-semibold">{card.title}</h3>

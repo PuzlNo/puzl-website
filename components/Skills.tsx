@@ -37,12 +37,12 @@ const groups = [
 
 export default function Skills() {
   return (
-    <section id="kompetanse" className="px-6 py-28">
+    <section id="kompetanse" className="bg-paper-3 px-6 py-28">
       <div className="mx-auto max-w-[1180px]">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
           <div>
             <SectionEyebrow label="Dette leverer vi" />
-            <h2 className="mt-4 text-[36px] font-semibold sm:text-[44px]">
+            <h2 className="mt-4 text-[36px] font-bold sm:text-[44px]">
               Teknologien under panseret.
             </h2>
           </div>

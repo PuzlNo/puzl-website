@@ -42,11 +42,11 @@ export default function Contact() {
   }
 
   return (
-    <section id="kontakt" className="px-6 py-28">
+    <section id="kontakt" className="border-t border-[var(--line)] px-6 py-28">
       <div className="mx-auto grid max-w-[1180px] grid-cols-1 gap-14 lg:grid-cols-2">
         <div>
           <SectionEyebrow label="Kontakt" />
-          <h2 className="mt-4 text-[36px] font-semibold sm:text-[44px]">
+          <h2 className="mt-4 text-[36px] font-bold sm:text-[44px]">
             La oss ta en kaffe ☕
           </h2>
           <p className="mt-4 max-w-[440px] text-[16px] leading-[1.6] text-[var(--ink-45)]">
