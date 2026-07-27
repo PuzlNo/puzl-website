@@ -21,7 +21,11 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Puzl — Skreddersydde AI-løsninger",
+  metadataBase: new URL("https://puzl.no"),
+  title: {
+    template: "%s | Puzl",
+    default: "Puzl — Skreddersydde AI-løsninger",
+  },
   description:
     "Vi bygger AI-løsninger skreddersydd til din bedrift, dine systemer og dine mål.",
 };

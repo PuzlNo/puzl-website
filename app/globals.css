@@ -136,3 +136,81 @@ html {
   outline: 2px solid var(--thread);
   outline-offset: 2px;
 }
+
+/* Article body — typographic scale for MDX-rendered blog posts. */
+.article-body {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink-80);
+}
+
+.article-body > * + * {
+  margin-top: 1.3em;
+}
+
+.article-body h2 {
+  margin-top: 2em;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.article-body h3 {
+  margin-top: 1.6em;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.article-body a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--chalk-brd);
+  text-underline-offset: 2px;
+}
+
+.article-body a:hover {
+  text-decoration-color: var(--chalk);
+}
+
+.article-body ul,
+.article-body ol {
+  padding-left: 1.4em;
+}
+
+.article-body ul {
+  list-style: disc;
+}
+
+.article-body ol {
+  list-style: decimal;
+}
+
+.article-body blockquote {
+  border-left: 2px solid var(--chalk-brd);
+  padding-left: 1.2em;
+  color: var(--ink-70);
+  font-style: italic;
+}
+
+.article-body code {
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 0.9em;
+  background: var(--paper-2);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+}
+
+.article-body pre {
+  overflow-x: auto;
+  padding: 1em;
+  border-radius: var(--radius-box);
+  background: var(--paper-2);
+}
+
+.article-body pre code {
+  background: none;
+  padding: 0;
+}
