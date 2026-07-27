@@ -46,7 +46,7 @@ export default function Hero() {
           style={{ animationDelay: "0.3s" }}
         >
           <a
-            href="#kontakt"
+            href="/kontakt"
             className="rounded-full bg-ink px-6 py-3 text-[15px] font-medium text-paper transition-colors hover:bg-[var(--thread)]"
           >
             La oss ta en kaffe →
