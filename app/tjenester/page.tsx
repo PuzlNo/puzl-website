@@ -61,6 +61,27 @@ const services = [
   },
 ];
 
+// DRAFT — describes actual operational process, not pure marketing copy.
+// Needs review/editing against how projects genuinely run before shipping as final.
+const phases = [
+  {
+    title: "Oppdagelse / Kartlegging",
+    text: "Vi starter med å forstå systemene, arbeidsflytene og dataene dere faktisk har — ikke med en ferdig løsning vi skal tilpasse i etterkant. Det innebærer samtaler med de som bruker systemene daglig, og en ærlig vurdering av hvor AI faktisk kan tilføre verdi. Noen ganger ender kartleggingen med at vi anbefaler noe mindre enn det som opprinnelig ble diskutert.",
+  },
+  {
+    title: "Design / Skreddersøm",
+    text: "Basert på kartleggingen definerer vi den konkrete løsningen: hvilke systemer den skal integreres med, hva den skal automatisere, og hvor grensen går for hva agenten gjør selv versus overlater til et menneske. Her blir «skreddersydd» konkret — en spesifikk spesifikasjon for akkurat deres virksomhet, ikke et prinsipp på et slide.",
+  },
+  {
+    title: "Bygging / Implementering",
+    text: "Vi bygger og integrerer mot systemene dere allerede bruker, og tester fortløpende mot reelle data og faktiske arbeidsflyter — ikke generiske testscenarioer. Dere ser fremdrift underveis, i stedet for å vente på et ferdig produkt ved slutten.",
+  },
+  {
+    title: "Levering / Oppfølging",
+    text: "Ved levering går vi gjennom løsningen sammen med teamet deres, slik at dere forstår hvordan den fungerer og kan justere den videre selv. Vi følger opp etter lansering, men vi er et lite team uten formaliserte SLA-er ennå — oppfølging avtales konkret per prosjekt, ikke som en generisk supportpakke.",
+  },
+];
+
 export default function TjenesterPage() {
   return (
     <>
@@ -103,7 +124,39 @@ export default function TjenesterPage() {
           </div>
         </section>
 
-        <section className="border-t border-[var(--line)] px-6 py-20">
+        <section className="border-y border-[var(--line)] bg-paper-2 px-6 py-28">
+          <div className="mx-auto max-w-[1180px]">
+            <SectionEyebrow label="Slik jobber vi" />
+            <h2 className="mt-4 text-[32px] font-bold sm:text-[38px]">
+              Fra kartlegging til levering.
+            </h2>
+            <p className="mt-4 max-w-[640px] text-[16px] leading-[1.7] text-[var(--ink-45)]">
+              Fire faser. Ingen snarveier, og ingen ferdigpakket løsning før vi har
+              forstått hva dere faktisk trenger.
+            </p>
+
+            <div className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-4 lg:gap-6">
+              {phases.map((phase, i) => (
+                <div
+                  key={phase.title}
+                  className={
+                    i > 0
+                      ? "border-t border-dashed border-[var(--line)] pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8"
+                      : ""
+                  }
+                >
+                  <p className="font-mono text-[13px] text-[var(--chalk)]">0{i + 1}</p>
+                  <h3 className="mt-2 text-[18px] font-semibold">{phase.title}</h3>
+                  <p className="mt-3 text-[14.5px] leading-[1.7] text-[var(--ink-45)]">
+                    {phase.text}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-6 py-20">
           <div className="mx-auto flex max-w-[1180px] flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
             <h2 className="max-w-[480px] text-[26px] font-bold leading-[1.3] sm:text-[30px]">
               Vil du diskutere hvilken av disse som passer din virksomhet — eller noe
