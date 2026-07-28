@@ -123,32 +123,40 @@ html {
   transform: translateY(0);
 }
 
-.reveal-seam-x {
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+/* Drawn stitch-seam path (workflow example): stroke-dasharray/offset driven
+   by --seam-len (path length in user units, measured via getTotalLength()),
+   same technique as .grainline-draw but scroll-triggered via .is-visible
+   rather than autoplaying on mount. */
+.reveal-seam {
+  stroke-dasharray: var(--seam-len, 1000);
+  stroke-dashoffset: var(--seam-len, 1000);
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-.reveal-seam-x.is-visible {
-  transform: scaleX(1);
+.reveal-seam.is-visible {
+  stroke-dashoffset: 0;
 }
 
-.reveal-seam-y {
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+.reveal-node {
+  opacity: 0;
+  transform: scale(0.4);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal-seam-y.is-visible {
-  transform: scaleY(1);
+.reveal-node.is-visible {
+  opacity: 1;
+  transform: scale(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal-step,
-  .reveal-seam-x,
-  .reveal-seam-y {
+  .reveal-seam,
+  .reveal-node {
     opacity: 1;
     transform: none;
+    stroke-dashoffset: 0;
     transition: none;
   }
 }
