@@ -109,55 +109,28 @@ html {
   }
 }
 
-/* Scroll-triggered reveal for sequential step-chains (e.g. workflow example).
-   JS toggles .is-visible once, on intersection — kept restrained to match
-   the fade-up/grainline-draw motion language elsewhere on the site. */
-.reveal-step {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+/* Flowing dash animation for pipeline-diagram connectors (workflow example).
+   Base state is a static dashed line (always visible, no scroll dependency —
+   this is a diagram meant to be read, not a reveal effect); JS adds
+   .is-flowing once scrolled into view to start the marching-dash loop that
+   reads as data moving in the direction of the path. */
+.flow-line {
+  stroke-dasharray: 5 7;
 }
 
-.reveal-step.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+.flow-line.is-flowing {
+  animation: flow-dash 0.9s linear infinite;
 }
 
-/* Drawn stitch-seam path (workflow example): stroke-dasharray/offset driven
-   by --seam-len (path length in user units, measured via getTotalLength()),
-   same technique as .grainline-draw but scroll-triggered via .is-visible
-   rather than autoplaying on mount. */
-.reveal-seam {
-  stroke-dasharray: var(--seam-len, 1000);
-  stroke-dashoffset: var(--seam-len, 1000);
-  transition: stroke-dashoffset 1.4s cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-.reveal-seam.is-visible {
-  stroke-dashoffset: 0;
-}
-
-.reveal-node {
-  opacity: 0;
-  transform: scale(0.4);
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.reveal-node.is-visible {
-  opacity: 1;
-  transform: scale(1);
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -24;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal-step,
-  .reveal-seam,
-  .reveal-node {
-    opacity: 1;
-    transform: none;
-    stroke-dashoffset: 0;
-    transition: none;
+  .flow-line.is-flowing {
+    animation: none;
   }
 }
 
