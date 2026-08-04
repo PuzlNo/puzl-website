@@ -137,7 +137,7 @@ const MAIN_NODES: NodeData[] = [
 // 3.1-3.4 — parallel fan-out/fan-in cluster.
 const BRANCH_NODES: NodeData[] = [
   { id: "3.1", title: "Brandprofil", subtitle: "Henter merkevareprofilen", icon: IconTag },
-  { id: "3.2", title: "Produktdatabase", subtitle: "Henter produktkontekst", icon: IconLayers },
+  { id: "3.2", title: "Produkt​database", subtitle: "Henter produktkontekst", icon: IconLayers },
   { id: "3.3", title: "Regelsett", subtitle: "Henter skriveregler", icon: IconChecklist },
   { id: "3.4", title: "SEO/AIO", subtitle: "Henter SEO/AIO-data", icon: IconSearch },
 ];
@@ -231,15 +231,61 @@ function NodeSlot({ node }: { node: NodeData }) {
   );
 }
 
-function MobileNode({ node }: { node: NodeData }) {
+function MobileNode({ node, centered }: { node: NodeData; centered?: boolean }) {
   const Icon = node.icon;
   return (
-    <div className="rounded-box border border-[var(--line)] bg-paper p-3.5">
-      <div className="flex items-center gap-2">
+    <div
+      className={`min-w-0 rounded-box border border-[var(--line)] bg-paper p-3.5 ${
+        centered ? "mx-auto flex w-[70%] flex-col items-center justify-center text-center" : ""
+      }`}
+    >
+      <div className={`flex min-w-0 items-center gap-2 ${centered ? "justify-center" : ""}`}>
         <Icon className="shrink-0 text-[var(--chalk)]" />
-        <p className="text-[13.5px] font-semibold leading-[1.3]">{node.title}</p>
+        <p className="min-w-0 break-words text-[13.5px] font-semibold leading-[1.3]">{node.title}</p>
       </div>
-      <p className="mt-1.5 text-[12px] leading-[1.5] text-[var(--ink-45)]">{node.subtitle}</p>
+      <p className="mt-1.5 break-words text-[12px] leading-[1.5] text-[var(--ink-45)]">{node.subtitle}</p>
+    </div>
+  );
+}
+
+function MobileFanSvg({ direction, flowing }: { direction: "in" | "out"; flowing: boolean }) {
+  // Mobile equivalent of FanSvg: the same bezier fan-out/fan-in visual
+  // language, rotated to a vertical orientation so the arrow chain reads
+  // as splitting into (and later converging out of) the parallel cluster
+  // instead of the cluster looking like a disconnected island.
+  const W = 140;
+  const H = 26;
+  const cls = `flow-line ${flowing ? "is-flowing" : ""}`;
+  const targets = [W * 0.22, W * 0.78];
+  const paths = targets.map((x) => {
+    const fromX = direction === "in" ? W / 2 : x;
+    const toX = direction === "in" ? x : W / 2;
+    const fromY = direction === "in" ? 0 : H;
+    const toY = direction === "in" ? H : 0;
+    const midY = H / 2;
+    return `M${fromX},${fromY} C${fromX},${midY} ${toX},${midY} ${toX},${toY}`;
+  });
+
+  return (
+    <div className="flex justify-center py-1">
+      <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} aria-hidden="true" overflow="visible">
+        {paths.map((d, i) => (
+          <path
+            key={i}
+            d={d}
+            fill="none"
+            stroke="var(--chalk)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            className={cls}
+            style={{ animationDelay: `${i * 90}ms` }}
+          />
+        ))}
+        <circle cx={W / 2} cy={direction === "in" ? 0 : H} r="3" fill="var(--chalk)" />
+        {targets.map((x, i) => (
+          <circle key={i} cx={x} cy={direction === "in" ? H : 0} r="3" fill="var(--chalk)" />
+        ))}
+      </svg>
     </div>
   );
 }
@@ -473,7 +519,7 @@ export default function WorkflowExample() {
   const diagramWrapRef = useRef<HTMLDivElement>(null);
   const diagramInnerRef = useRef<HTMLDivElement>(null);
   const [flowing, setFlowing] = useState(false);
-  const [diagramSize, setDiagramSize] = useState({ scale: 1, width: 0, height: 0, scrolls: false });
+  const [diagramSize, setDiagramSize] = useState({ scale: 1, width: 0, height: 0, scrolls: false, ready: false });
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -499,6 +545,14 @@ export default function WorkflowExample() {
   // viewport instead of jumping straight to horizontal scroll. Transforms
   // don't affect layout size, so offsetWidth/Height on the unscaled inner
   // content always reports its true natural size regardless of current scale.
+  //
+  // `ready` gates visibility (see the opacity classes below) rather than
+  // relying on useLayoutEffect alone to prevent a flash of the unscaled
+  // diagram: useLayoutEffect only stops flicker *between* client renders,
+  // but on a hard reload the browser paints the server-rendered HTML
+  // (scale defaults to 1) before React hydrates and this effect can run.
+  // Keeping the diagram invisible until the first real scale is computed
+  // means that initial unscaled paint is simply never shown.
   useLayoutEffect(() => {
     const wrap = diagramWrapRef.current;
     const inner = diagramInnerRef.current;
@@ -516,6 +570,7 @@ export default function WorkflowExample() {
         width: naturalW * scale,
         height: naturalH * scale,
         scrolls: rawScale < MIN_SCALE,
+        ready: true,
       });
     };
 
@@ -541,8 +596,14 @@ export default function WorkflowExample() {
 
         {/* Desktop: branching pipeline diagram — full-bleed breakout, scaled
             fluidly as one unit to fit the available width (see the scale
-            effect above); horizontal scroll only kicks in past MIN_SCALE. */}
-        <div className="relative left-1/2 mt-16 hidden w-screen -translate-x-1/2 px-6 lg:block lg:px-12 xl:px-20">
+            effect above); horizontal scroll only kicks in past MIN_SCALE.
+            Stays invisible until the first scale is computed (see `ready`
+            above) so a hard reload never flashes the unscaled diagram. */}
+        <div
+          className={`relative left-1/2 mt-16 hidden w-screen -translate-x-1/2 px-6 transition-opacity duration-300 lg:block lg:px-12 xl:px-20 ${
+            diagramSize.ready ? "opacity-100" : "opacity-0"
+          }`}
+        >
           <div
             ref={diagramWrapRef}
             className={`mx-auto max-w-[1680px] ${diagramSize.scrolls ? "overflow-x-auto" : ""}`}
@@ -572,15 +633,18 @@ export default function WorkflowExample() {
           </div>
         </div>
 
-        {/* Mobile: vertical chain, branch nodes grouped in a bracketed cluster */}
+        {/* Mobile: vertical chain, branch nodes grouped in a bracketed cluster.
+            Standalone nodes render narrower and centered (see MobileNode's
+            `centered` prop); the cluster connects into/out of the arrow
+            chain via MobileFanSvg instead of floating as an isolated block. */}
         <div className="mx-auto mt-12 flex max-w-[1180px] flex-col lg:hidden">
           {MAIN_NODES.map((node, i) => (
             <div key={node.id}>
               {i > 0 && <VerticalConnector flowing={flowing} />}
-              <MobileNode node={node} />
+              <MobileNode node={node} centered />
             </div>
           ))}
-          <VerticalConnector flowing={flowing} />
+          <MobileFanSvg direction="in" flowing={flowing} />
 
           <div className="rounded-box border border-dashed border-[var(--line)] p-3">
             <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--chalk)]">
@@ -593,10 +657,11 @@ export default function WorkflowExample() {
             </div>
           </div>
 
-          {TAIL_NODES.map((node) => (
+          <MobileFanSvg direction="out" flowing={flowing} />
+          {TAIL_NODES.map((node, i) => (
             <div key={node.id}>
-              <VerticalConnector flowing={flowing} />
-              <MobileNode node={node} />
+              {i > 0 && <VerticalConnector flowing={flowing} />}
+              <MobileNode node={node} centered />
             </div>
           ))}
         </div>
