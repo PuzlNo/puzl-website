@@ -142,8 +142,10 @@ const BRANCH_NODES: NodeData[] = [
   { id: "3.4", title: "SEO/AIO", subtitle: "Henter relevant SEO og AIO database", icon: IconSearch },
 ];
 
-// 4-9 — right-hand 2x3 grid, read left-to-right then top-to-bottom.
-const GRID_NODES: NodeData[] = [
+// 4-9 — the zigzag tail following the fan-in convergence. Order here is
+// flow order (also used verbatim for the mobile vertical chain); desktop
+// positions come from ZIGZAG_POS below, keyed by id.
+const TAIL_NODES: NodeData[] = [
   { id: "4", title: "Datasortering", subtitle: "Systematiserer og kombinerer database, produktinformasjon og relevans", icon: IconFilter },
   { id: "5", title: "Data AI-agent", subtitle: "Data AI-agent analyserer dataen og optimaliserer for produkttekstgenerering", icon: IconBolt },
   { id: "6", title: "Optimalisert data", subtitle: "Data AI-agent sender optimalisert data til Innholdsproduksjon AI-agent", icon: IconCheckCircle },
@@ -152,29 +154,50 @@ const GRID_NODES: NodeData[] = [
   { id: "9", title: "Publiseres", subtitle: "Produkttekst og produkt publiseres", icon: IconGlobe },
 ];
 
-const MOBILE_TAIL_NODES = GRID_NODES; // same 6, rendered as a plain vertical chain on mobile
-
 // Fixed node dimensions so every connector below is hand-computed rather
 // than measured at runtime — deterministic layout, no ResizeObserver.
-const NODE_W = 168;
-const NODE_H = 108;
+// Sized generously enough that the longest title/subtitle pair in
+// TAIL_NODES wraps without any truncation.
+const NODE_W = 224;
+const NODE_H = 140;
 const GAP_V = 12; // vertical gap inside the branch cluster (3.1-3.4)
-const CHAIN_W = 30; // width of a simple horizontal arrow connector
-const FAN_W = 46; // width of the fan-out / fan-in svg zones
-const STACK_GAP = 30; // gap between node 1 and node 2 in the left stack
-const ROW_GAP = 36; // gap between grid row 1 and row 2
-const COL_GAP = 30; // gap between grid columns
+const CHAIN_W = 36; // width of a simple horizontal arrow connector
+const FAN_W = 56; // width of the fan-out / fan-in svg zones
+const STACK_GAP = 36; // gap between node 1 and node 2 in the left stack
+const ZZ_ROW_GAP = 36; // vertical gap between zigzag rows
+const ZZ_COL_GAP = 36; // horizontal gap between zigzag columns
 
-const CLUSTER_H = BRANCH_NODES.length * NODE_H + (BRANCH_NODES.length - 1) * GAP_V; // 468
+const CLUSTER_H = BRANCH_NODES.length * NODE_H + (BRANCH_NODES.length - 1) * GAP_V;
 const BRANCH_CENTERS = BRANCH_NODES.map((_, i) => i * (NODE_H + GAP_V) + NODE_H / 2);
 
 // The shared horizontal centerline every piece of the diagram aligns to:
-// node 3, both fan svgs, node 2 (bottom of the left stack), and row 1 of
-// the right grid all place their connection point at this same Y.
+// node 3, both fan svgs, node 2 (bottom of the left stack), and
+// Datasortering (the fan-in landing node) all place their connection
+// point at this same Y.
 const MID_Y = CLUSTER_H / 2;
 const LEFT_SPACER = MID_Y - NODE_H / 2 - STACK_GAP - NODE_H; // margin-top before node 1
-const GRID_SPACER = MID_Y - NODE_H / 2; // margin-top before grid row 1
-const GRID_W = 3 * NODE_W + 2 * COL_GAP;
+
+// Zigzag tail geometry — an S-shaped path, not a rectangular grid:
+//   row -1: Data AI-agent | Optimalisert data | Innholdsproduksjon AI-agent
+//   row  0: Datasortering |        --         | Produkttekst
+//   row  1:       --      |        --         | Publiseres
+// Column/row step size along each axis:
+const ZZ_COL = NODE_W + ZZ_COL_GAP;
+const ZZ_ROW = NODE_H + ZZ_ROW_GAP;
+// Local (left, top) within the zigzag's own box, row -1's top = 0.
+const ZIGZAG_POS: Record<string, { left: number; top: number }> = {
+  "5": { left: 0, top: 0 }, // Data AI-agent — row -1, col 0
+  "6": { left: ZZ_COL, top: 0 }, // Optimalisert data — row -1, col 1
+  "7": { left: 2 * ZZ_COL, top: 0 }, // Innholdsproduksjon AI-agent — row -1, col 2
+  "4": { left: 0, top: ZZ_ROW }, // Datasortering — row 0, col 0 (anchor)
+  "8": { left: 2 * ZZ_COL, top: ZZ_ROW }, // Produkttekst — row 0, col 2
+  "9": { left: 2 * ZZ_COL, top: 2 * ZZ_ROW }, // Publiseres — row 1, col 2
+};
+const ZIGZAG_W = 3 * NODE_W + 2 * ZZ_COL_GAP;
+const ZIGZAG_H = 3 * NODE_H + 2 * ZZ_ROW_GAP;
+// margin-top so Datasortering's center lands on MID_Y, same convention
+// as every other entry point in the diagram.
+const ZIGZAG_SPACER = MID_Y - ZZ_ROW - NODE_H / 2;
 
 function Node({ node }: { node: NodeData }) {
   const Icon = node.icon;
@@ -186,11 +209,9 @@ function Node({ node }: { node: NodeData }) {
       <div className="flex h-full flex-col justify-center">
         <div className="flex items-center gap-2">
           <Icon className="shrink-0 text-[var(--chalk)]" />
-          <p className="line-clamp-2 text-[13px] font-semibold leading-[1.3]">{node.title}</p>
+          <p className="text-[13px] font-semibold leading-[1.3]">{node.title}</p>
         </div>
-        <p className="mt-1.5 line-clamp-2 text-[11.5px] leading-[1.45] text-[var(--ink-45)]">
-          {node.subtitle}
-        </p>
+        <p className="mt-1.5 text-[11.5px] leading-[1.45] text-[var(--ink-45)]">{node.subtitle}</p>
       </div>
     </div>
   );
@@ -328,26 +349,39 @@ function LeftStack({ flowing }: { flowing: boolean }) {
   );
 }
 
-function WrapConnector({ flowing }: { flowing: boolean }) {
-  // The "carriage return" from the end of grid row 1 (node 6, rightmost)
-  // down to the start of row 2 (node 7, leftmost) — reading order stays
-  // left-to-right on both rows, so this sweeps the full grid width.
-  const startX = 2 * (NODE_W + COL_GAP) + NODE_W / 2;
-  const endX = NODE_W / 2;
-  const midY = ROW_GAP / 2;
+function StraightArrow({
+  orientation,
+  flowing,
+}: {
+  orientation: "right" | "up" | "down";
+  flowing: boolean;
+}) {
+  const cls = `flow-line ${flowing ? "is-flowing" : ""}`;
+
+  if (orientation === "right") {
+    const w = ZZ_COL_GAP;
+    return (
+      <svg width={w} height="20" viewBox={`0 0 ${w} 20`} aria-hidden="true" overflow="visible">
+        <path d={`M2,10 L${w - 6},10`} fill="none" stroke="var(--chalk)" strokeWidth="1.5" strokeLinecap="round" className={cls} />
+        <path d={`M${w - 11},5 L${w - 4},10 L${w - 11},15`} fill="none" stroke="var(--chalk)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  const h = ZZ_ROW_GAP;
+  const up = orientation === "up";
   return (
-    <svg width={GRID_W} height={ROW_GAP} viewBox={`0 0 ${GRID_W} ${ROW_GAP}`} aria-hidden="true" className="block">
+    <svg width="20" height={h} viewBox={`0 0 20 ${h}`} aria-hidden="true" overflow="visible">
       <path
-        d={`M${startX},0 C${startX},${midY} ${endX},${midY} ${endX},${ROW_GAP}`}
+        d={up ? `M10,${h - 2} L10,8` : `M10,2 L10,${h - 8}`}
         fill="none"
         stroke="var(--chalk)"
         strokeWidth="1.5"
         strokeLinecap="round"
-        className={`flow-line ${flowing ? "is-flowing" : ""}`}
+        className={cls}
       />
-      <circle cx={startX} cy="2" r="2.5" fill="var(--chalk)" />
       <path
-        d={`M${endX - 5},${ROW_GAP - 9} L${endX},${ROW_GAP - 2} L${endX + 5},${ROW_GAP - 9}`}
+        d={up ? `M5,13 L10,6 L15,13` : `M5,${h - 13} L10,${h - 6} L15,${h - 13}`}
         fill="none"
         stroke="var(--chalk)"
         strokeWidth="1.5"
@@ -358,25 +392,45 @@ function WrapConnector({ flowing }: { flowing: boolean }) {
   );
 }
 
-function RightGrid({ flowing }: { flowing: boolean }) {
-  const row1 = GRID_NODES.slice(0, 3);
-  const row2 = GRID_NODES.slice(3, 6);
+// The final six nodes as an S-shaped zigzag rather than a rectangular
+// grid: Datasortering (anchor) -> up -> right -> right -> down -> down.
+// Every node and connector is absolutely positioned from ZIGZAG_POS —
+// deterministic, still no runtime measurement.
+function ZigzagPath({ flowing }: { flowing: boolean }) {
+  const byId = Object.fromEntries(TAIL_NODES.map((n) => [n.id, n]));
+  const half = NODE_H / 2;
+  const colCenter = NODE_W / 2;
+
   return (
-    <div style={{ marginTop: GRID_SPACER }} className="flex shrink-0 flex-col">
-      <div className="flex items-center">
-        <Node node={row1[0]} />
-        <ChainConnector flowing={flowing} height={NODE_H} width={COL_GAP} />
-        <Node node={row1[1]} />
-        <ChainConnector flowing={flowing} height={NODE_H} width={COL_GAP} />
-        <Node node={row1[2]} />
+    <div
+      style={{ marginTop: ZIGZAG_SPACER, width: ZIGZAG_W, height: ZIGZAG_H }}
+      className="relative shrink-0"
+    >
+      {Object.entries(ZIGZAG_POS).map(([id, pos]) => (
+        <div key={id} style={{ position: "absolute", left: pos.left, top: pos.top }}>
+          <Node node={byId[id]} />
+        </div>
+      ))}
+
+      {/* 4 -> 5: up, column 0 */}
+      <div style={{ position: "absolute", left: ZIGZAG_POS["4"].left + colCenter - 10, top: ZIGZAG_POS["5"].top + NODE_H }}>
+        <StraightArrow orientation="up" flowing={flowing} />
       </div>
-      <WrapConnector flowing={flowing} />
-      <div className="flex items-center">
-        <Node node={row2[0]} />
-        <ChainConnector flowing={flowing} height={NODE_H} width={COL_GAP} />
-        <Node node={row2[1]} />
-        <ChainConnector flowing={flowing} height={NODE_H} width={COL_GAP} />
-        <Node node={row2[2]} />
+      {/* 5 -> 6: right, row -1 */}
+      <div style={{ position: "absolute", left: ZIGZAG_POS["5"].left + NODE_W, top: ZIGZAG_POS["5"].top + half - 10 }}>
+        <StraightArrow orientation="right" flowing={flowing} />
+      </div>
+      {/* 6 -> 7: right, row -1 */}
+      <div style={{ position: "absolute", left: ZIGZAG_POS["6"].left + NODE_W, top: ZIGZAG_POS["6"].top + half - 10 }}>
+        <StraightArrow orientation="right" flowing={flowing} />
+      </div>
+      {/* 7 -> 8: down, column 2 */}
+      <div style={{ position: "absolute", left: ZIGZAG_POS["7"].left + colCenter - 10, top: ZIGZAG_POS["7"].top + NODE_H }}>
+        <StraightArrow orientation="down" flowing={flowing} />
+      </div>
+      {/* 8 -> 9: down, column 2 */}
+      <div style={{ position: "absolute", left: ZIGZAG_POS["8"].left + colCenter - 10, top: ZIGZAG_POS["8"].top + NODE_H }}>
+        <StraightArrow orientation="down" flowing={flowing} />
       </div>
     </div>
   );
@@ -456,7 +510,7 @@ export default function WorkflowExample() {
               ))}
             </div>
             <FanSvg direction="in" flowing={flowing} />
-            <RightGrid flowing={flowing} />
+            <ZigzagPath flowing={flowing} />
           </div>
         </div>
 
@@ -481,7 +535,7 @@ export default function WorkflowExample() {
             </div>
           </div>
 
-          {MOBILE_TAIL_NODES.map((node) => (
+          {TAIL_NODES.map((node) => (
             <div key={node.id}>
               <VerticalConnector flowing={flowing} />
               <MobileNode node={node} />
