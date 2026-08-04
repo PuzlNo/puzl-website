@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactElement } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactElement } from "react";
 import GrainlineMark from "./GrainlineMark";
 import SectionEyebrow from "./SectionEyebrow";
 
@@ -129,43 +129,46 @@ function IconGlobe({ className }: { className?: string }) {
 
 // 1, 2, 3 — left-hand entry chain (1 and 2 stack vertically on desktop).
 const MAIN_NODES: NodeData[] = [
-  { id: "1", title: "Nytt produkt", subtitle: "Produkt opprettes", icon: IconBox },
-  { id: "2", title: "Produktdata sendes", subtitle: "Produktnavn, produktbilde og produktinformasjon", icon: IconSend },
-  { id: "3", title: "Database mottar produktdata", subtitle: "Henter relevant data fra database for produktet", icon: IconDatabase },
+  { id: "1", title: "Nytt produkt", subtitle: "Produktet opprettes", icon: IconBox },
+  { id: "2", title: "Produktdata sendes", subtitle: "Navn, bilde og info sendes", icon: IconSend },
+  { id: "3", title: "Database mottar produktdata", subtitle: "Henter data for produktet", icon: IconDatabase },
 ];
 
 // 3.1-3.4 — parallel fan-out/fan-in cluster.
 const BRANCH_NODES: NodeData[] = [
   { id: "3.1", title: "Brandprofil", subtitle: "Henter merkevareprofilen", icon: IconTag },
-  { id: "3.2", title: "Produktdatabase", subtitle: "Henter relevant produkt-kontekst", icon: IconLayers },
-  { id: "3.3", title: "Regelsett", subtitle: "Henter skrivemetodikk og regler", icon: IconChecklist },
-  { id: "3.4", title: "SEO/AIO", subtitle: "Henter relevant SEO og AIO database", icon: IconSearch },
+  { id: "3.2", title: "Produktdatabase", subtitle: "Henter produktkontekst", icon: IconLayers },
+  { id: "3.3", title: "Regelsett", subtitle: "Henter skriveregler", icon: IconChecklist },
+  { id: "3.4", title: "SEO/AIO", subtitle: "Henter SEO/AIO-data", icon: IconSearch },
 ];
 
 // 4-9 — the zigzag tail following the fan-in convergence. Order here is
 // flow order (also used verbatim for the mobile vertical chain); desktop
 // positions come from ZIGZAG_POS below, keyed by id.
 const TAIL_NODES: NodeData[] = [
-  { id: "4", title: "Datasortering", subtitle: "Systematiserer og kombinerer database, produktinformasjon og relevans", icon: IconFilter },
-  { id: "5", title: "Data AI-agent", subtitle: "Data AI-agent analyserer dataen og optimaliserer for produkttekstgenerering", icon: IconBolt },
-  { id: "6", title: "Optimalisert data", subtitle: "Data AI-agent sender optimalisert data til Innholdsproduksjon AI-agent", icon: IconCheckCircle },
-  { id: "7", title: "Innholdsproduksjon AI-agent", subtitle: "Innholdsagent skriver produktteksten til produktet", icon: IconAgent },
-  { id: "8", title: "Produkttekst", subtitle: "Agent produserer tekst", icon: IconDocument },
-  { id: "9", title: "Publiseres", subtitle: "Produkttekst og produkt publiseres", icon: IconGlobe },
+  { id: "4", title: "Datasortering", subtitle: "Systematiserer og kombinerer data", icon: IconFilter },
+  { id: "5", title: "Data AI-agent", subtitle: "Analyserer og optimaliserer data", icon: IconBolt },
+  { id: "6", title: "Optimalisert data", subtitle: "Sendes til Innholdsproduksjon AI-agent", icon: IconCheckCircle },
+  { id: "7", title: "Innholdsproduksjon AI-agent", subtitle: "Skriver produktteksten", icon: IconAgent },
+  { id: "8", title: "Produkttekst", subtitle: "Teksten produseres", icon: IconDocument },
+  { id: "9", title: "Publiseres", subtitle: "Publiseres til produktet", icon: IconGlobe },
 ];
 
-// Fixed node dimensions so every connector below is hand-computed rather
-// than measured at runtime — deterministic layout, no ResizeObserver.
-// Sized generously enough that the longest title/subtitle pair in
-// TAIL_NODES wraps without any truncation.
-const NODE_W = 224;
-const NODE_H = 140;
-const GAP_V = 12; // vertical gap inside the branch cluster (3.1-3.4)
-const CHAIN_W = 36; // width of a simple horizontal arrow connector
-const FAN_W = 56; // width of the fan-out / fan-in svg zones
-const STACK_GAP = 36; // gap between node 1 and node 2 in the left stack
-const ZZ_ROW_GAP = 36; // vertical gap between zigzag rows
-const ZZ_COL_GAP = 36; // horizontal gap between zigzag columns
+// Fixed node dimensions (at 1:1 scale) so every connector below is
+// hand-computed rather than measured at runtime — deterministic layout.
+// The whole diagram is then scaled fluidly as one unit to fit the
+// viewport (see the scale effect in WorkflowExample), so these are the
+// "natural" sizes, not a fixed on-screen size. Sized generously enough
+// that the longest title/subtitle pair in TAIL_NODES wraps without any
+// truncation at scale 1.
+const NODE_W = 204;
+const NODE_H = 118;
+const GAP_V = 10; // vertical gap inside the branch cluster (3.1-3.4)
+const CHAIN_W = 32; // width of a simple horizontal arrow connector
+const FAN_W = 52; // width of the fan-out / fan-in svg zones
+const STACK_GAP = 32; // gap between node 1 and node 2 in the left stack
+const ZZ_ROW_GAP = 32; // vertical gap between zigzag rows
+const ZZ_COL_GAP = 32; // horizontal gap between zigzag columns
 
 const CLUSTER_H = BRANCH_NODES.length * NODE_H + (BRANCH_NODES.length - 1) * GAP_V;
 const BRANCH_CENTERS = BRANCH_NODES.map((_, i) => i * (NODE_H + GAP_V) + NODE_H / 2);
@@ -461,9 +464,16 @@ function VerticalConnector({ flowing }: { flowing: boolean }) {
   );
 }
 
+// Below this scale the diagram would be too small to read comfortably;
+// horizontal scroll takes over as the fallback instead of shrinking further.
+const MIN_SCALE = 0.62;
+
 export default function WorkflowExample() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const diagramWrapRef = useRef<HTMLDivElement>(null);
+  const diagramInnerRef = useRef<HTMLDivElement>(null);
   const [flowing, setFlowing] = useState(false);
+  const [diagramSize, setDiagramSize] = useState({ scale: 1, width: 0, height: 0, scrolls: false });
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -483,8 +493,40 @@ export default function WorkflowExample() {
     return () => observer.disconnect();
   }, []);
 
+  // Fluid scaling: the diagram's internal geometry (NODE_W, ZIGZAG_W, etc.)
+  // stays fixed and deterministic, but the whole diagram is scaled as one
+  // unit to fit the available width, so it shrinks gradually with the
+  // viewport instead of jumping straight to horizontal scroll. Transforms
+  // don't affect layout size, so offsetWidth/Height on the unscaled inner
+  // content always reports its true natural size regardless of current scale.
+  useLayoutEffect(() => {
+    const wrap = diagramWrapRef.current;
+    const inner = diagramInnerRef.current;
+    if (!wrap || !inner) return;
+
+    const recompute = () => {
+      const naturalW = inner.offsetWidth;
+      const naturalH = inner.offsetHeight;
+      const availableW = wrap.clientWidth;
+      if (!naturalW || !availableW) return;
+      const rawScale = availableW / naturalW;
+      const scale = Math.min(1, Math.max(MIN_SCALE, rawScale));
+      setDiagramSize({
+        scale,
+        width: naturalW * scale,
+        height: naturalH * scale,
+        scrolls: rawScale < MIN_SCALE,
+      });
+    };
+
+    recompute();
+    const observer = new ResizeObserver(recompute);
+    observer.observe(wrap);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="px-6 py-28">
+    <section className="overflow-x-hidden px-6 py-28">
       <div ref={sectionRef}>
         <div className="mx-auto max-w-[1180px]">
           <SectionEyebrow label="Et eksempel: Innholdsagent" />
@@ -497,20 +539,36 @@ export default function WorkflowExample() {
           </p>
         </div>
 
-        {/* Desktop: branching pipeline diagram */}
-        <div className="mt-16 hidden overflow-x-auto lg:block">
-          <div className="mx-auto flex w-max items-start px-6">
-            <LeftStack flowing={flowing} />
-            <ChainConnector flowing={flowing} />
-            <NodeSlot node={MAIN_NODES[2]} />
-            <FanSvg direction="out" flowing={flowing} />
-            <div className="flex flex-col gap-3">
-              {BRANCH_NODES.map((node) => (
-                <Node key={node.id} node={node} />
-              ))}
+        {/* Desktop: branching pipeline diagram — full-bleed breakout, scaled
+            fluidly as one unit to fit the available width (see the scale
+            effect above); horizontal scroll only kicks in past MIN_SCALE. */}
+        <div className="relative left-1/2 mt-16 hidden w-screen -translate-x-1/2 px-6 lg:block lg:px-12 xl:px-20">
+          <div
+            ref={diagramWrapRef}
+            className={`mx-auto max-w-[1680px] ${diagramSize.scrolls ? "overflow-x-auto" : ""}`}
+          >
+            <div
+              className="mx-auto"
+              style={diagramSize.width ? { width: diagramSize.width, height: diagramSize.height } : undefined}
+            >
+              <div
+                ref={diagramInnerRef}
+                style={{ transform: `scale(${diagramSize.scale})`, transformOrigin: "top left" }}
+                className="flex w-max items-start"
+              >
+                <LeftStack flowing={flowing} />
+                <ChainConnector flowing={flowing} />
+                <NodeSlot node={MAIN_NODES[2]} />
+                <FanSvg direction="out" flowing={flowing} />
+                <div className="flex flex-col gap-3">
+                  {BRANCH_NODES.map((node) => (
+                    <Node key={node.id} node={node} />
+                  ))}
+                </div>
+                <FanSvg direction="in" flowing={flowing} />
+                <ZigzagPath flowing={flowing} />
+              </div>
             </div>
-            <FanSvg direction="in" flowing={flowing} />
-            <ZigzagPath flowing={flowing} />
           </div>
         </div>
 
