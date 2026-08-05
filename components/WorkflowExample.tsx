@@ -131,7 +131,7 @@ function IconGlobe({ className }: { className?: string }) {
 const MAIN_NODES: NodeData[] = [
   { id: "1", title: "Nytt produkt", subtitle: "Produktet opprettes", icon: IconBox },
   { id: "2", title: "Produktdata sendes", subtitle: "Navn, bilde og info sendes", icon: IconSend },
-  { id: "3", title: "Database mottar produktdata", subtitle: "Henter data for produktet", icon: IconDatabase },
+  { id: "3", title: "Henter data", subtitle: "Henter data for produktet", icon: IconDatabase },
 ];
 
 // 3.1-3.4 — parallel fan-out/fan-in cluster.
@@ -148,8 +148,8 @@ const BRANCH_NODES: NodeData[] = [
 const TAIL_NODES: NodeData[] = [
   { id: "4", title: "Datasortering", subtitle: "Systematiserer og kombinerer data", icon: IconFilter },
   { id: "5", title: "Data AI-agent", subtitle: "Analyserer og optimaliserer data", icon: IconBolt },
-  { id: "6", title: "Optimalisert data", subtitle: "Sendes til Innholdsproduksjon AI-agent", icon: IconCheckCircle },
-  { id: "7", title: "Innholdsproduksjon AI-agent", subtitle: "Skriver produktteksten", icon: IconAgent },
+  { id: "6", title: "Optimalisert data", subtitle: "Sendes til Innholds AI-agent", icon: IconCheckCircle },
+  { id: "7", title: "Innholds AI-agent", subtitle: "Skriver produktteksten", icon: IconAgent },
   { id: "8", title: "Produkttekst", subtitle: "Teksten produseres", icon: IconDocument },
   { id: "9", title: "Publiseres", subtitle: "Publiseres til produktet", icon: IconGlobe },
 ];
@@ -188,7 +188,7 @@ const MID_Y = CLUSTER_H / 2;
 const LEFT_SPACER = MID_Y - NODE_H / 2 - STACK_GAP - NODE_H; // margin-top before node 1
 
 // Zigzag tail geometry — an S-shaped path, not a rectangular grid:
-//   row -1: Data AI-agent | Optimalisert data | Innholdsproduksjon AI-agent
+//   row -1: Data AI-agent | Optimalisert data | Innholds AI-agent
 //   row  0: Datasortering |        --         | Produkttekst
 //   row  1:       --      |        --         | Publiseres
 // Column/row step size along each axis:
@@ -198,7 +198,7 @@ const ZZ_ROW = NODE_H + ZZ_ROW_GAP;
 const ZIGZAG_POS: Record<string, { left: number; top: number }> = {
   "5": { left: 0, top: 0 }, // Data AI-agent — row -1, col 0
   "6": { left: ZZ_COL, top: 0 }, // Optimalisert data — row -1, col 1
-  "7": { left: 2 * ZZ_COL, top: 0 }, // Innholdsproduksjon AI-agent — row -1, col 2
+  "7": { left: 2 * ZZ_COL, top: 0 }, // Innholds AI-agent — row -1, col 2
   "4": { left: 0, top: ZZ_ROW }, // Datasortering — row 0, col 0 (anchor)
   "8": { left: 2 * ZZ_COL, top: ZZ_ROW }, // Produkttekst — row 0, col 2
   "9": { left: 2 * ZZ_COL, top: 2 * ZZ_ROW }, // Publiseres — row 1, col 2
