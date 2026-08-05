@@ -72,6 +72,56 @@ export default function OmOssPage() {
 
         <section className="px-6 py-28">
           <div className="mx-auto max-w-[1180px]">
+            <SectionEyebrow label="Erfaringen bak" />
+            <h2 className="mt-4 max-w-[720px] text-[32px] font-bold leading-[1.2] sm:text-[38px]">
+              Skreddersøm krever at man har sydd før.
+            </h2>
+
+            <div className="mt-8 flex max-w-[760px] flex-col gap-6 text-[16px] leading-[1.75] text-[var(--ink-45)]">
+              <p>
+                Vi har jobbet med virksomheter fra 0 til 250 millioner kroner i
+                omsetning, og har over 15 års erfaring med netthandel, kommersiell
+                strategi og systemarkitektur. Det er en kombinasjon du sjelden finner
+                samlet — de fleste byråer er enten tekniske spesialister eller
+                strategikonsulenter, sjelden begge deler samtidig. Det er denne
+                kombinasjonen som gjør at skreddersøm faktisk er mulig i praksis, og
+                ikke bare et ord på nettsiden.
+              </p>
+              <p>
+                Den kommersielle siden handler om vekst som lar seg måle. Vi har blant
+                annet tatt en virksomhet fra 200 000 til 15 millioner kroner i
+                omsetning på halvannet år gjennom kommersiell strategi fremfor
+                tilfeldige eksperimenter, og vi har effektivisert og bygget om
+                eksisterende systemer på en måte som har spart virksomheter for
+                titalls millioner kroner og flere års arbeid.
+              </p>
+              <p>
+                Systemarkitekturen vi bygger er alltid rigget for vekst — ikke bare
+                for å løse dagens problem, men for at virksomheten skal kunne bruke
+                tiden sin på salg og utvikling i stedet for å drukne i drift når den
+                vokser.
+              </p>
+              <p>
+                Vi har også dyp kompetanse på SEO og AIO/GEO — optimalisering for
+                KI-drevne søk og generative motorer — og på beste praksis på tvers av
+                plattformvalg, kodearkitektur og arbeidsflyt for netthandel, blant
+                annet hvordan nettbutikker bør bruke E-E-A-T og topical authority for
+                å bygge organisk synlighet over tid.
+              </p>
+              <p>
+                Netthandel er vår spisskompetanse, og der har vi jobbet lengst og
+                dypest. Men kompetansen som faktisk ligger bak — å kommersialisere en
+                virksomhet på nett — er ikke låst til én bransje. Den samme tenkingen
+                som bygger en nettbutikk som konverterer, er det som gjør at for
+                eksempel en bilforhandler kan ha nytte av en AI-drevet
+                kundeserviceagent. Vi følger kompetansen, ikke en fast bransjemal.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-[var(--line)] px-6 py-28">
+          <div className="mx-auto max-w-[1180px]">
             <SectionEyebrow label="Hvordan vi jobber" />
             <h2 className="mt-4 text-[32px] font-bold sm:text-[38px]">
               Tre prinsipper, ingen unntak.
