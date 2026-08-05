@@ -30,28 +30,33 @@ const pillars = [
 const experience = [
   {
     tag: "SPENN",
-    title: "Fra 0 til 250 millioner",
-    text: "Vi har jobbet med virksomheter fra 0 til 250 millioner kroner i omsetning, med over 15 års erfaring fra netthandel, kommersiell strategi og systemarkitektur. De fleste byråer er enten tekniske spesialister eller strategikonsulenter — sjelden begge deler samtidig.",
+    title: "Omsetningserfaring",
+    text: "Vi har jobbet med virksomheter fra 0 til 250 millioner kroner i omsetning — fra tidlig fase til etablerte aktører med kompleks drift.",
+  },
+  {
+    tag: "BAKGRUNN",
+    title: "15+ års erfaring",
+    text: "Over 15 års erfaring fra netthandel, kommersiell strategi og systemarkitektur. De fleste byråer er enten tekniske spesialister eller strategikonsulenter — sjelden begge deler samtidig.",
   },
   {
     tag: "VEKST",
-    title: "Kommersiell vekst, målbart",
-    text: "Vi har tatt en virksomhet fra 200 000 til 15 millioner kroner i omsetning på halvannet år gjennom kommersiell strategi fremfor tilfeldige eksperimenter — og effektivisert eksisterende systemer på måter som har spart virksomheter for titalls millioner kroner og flere års arbeid.",
+    title: "Vekststrategi",
+    text: "Vi har tatt en virksomhet fra 200 000 til 15 millioner kroner i omsetning på halvannet år, gjennom kommersiell strategi fremfor tilfeldige eksperimenter.",
+  },
+  {
+    tag: "DRIFT",
+    title: "Effektivisering",
+    text: "Vi har effektivisert og bygget om eksisterende systemer på måter som har spart virksomheter for titalls millioner kroner og flere års arbeid.",
   },
   {
     tag: "ARKITEKTUR",
-    title: "Rigget for skalering",
+    title: "Systemarkitektur for skalering",
     text: "Systemarkitekturen vi bygger er alltid rigget for vekst — ikke bare for å løse dagens problem, men for at virksomheten skal kunne bruke tiden sin på salg og utvikling i stedet for å drukne i drift når den vokser.",
   },
   {
     tag: "SYNLIGHET",
-    title: "SEO, AIO og GEO",
+    title: "SEO/AIO/GEO-kompetanse",
     text: "Vi har dyp kompetanse på optimalisering for KI-drevne søk og generative motorer, og på beste praksis på tvers av plattformvalg, kodearkitektur og arbeidsflyt — blant annet hvordan nettbutikker bør bruke E-E-A-T og topical authority for å bygge organisk synlighet over tid.",
-  },
-  {
-    tag: "SPESIALISERING",
-    title: "Netthandel som kjerne",
-    text: "Netthandel er vår spisskompetanse, og der har vi jobbet lengst og dypest. Men kompetansen som faktisk ligger bak — å kommersialisere en virksomhet på nett — er ikke låst til én bransje. En bilforhandler kan ha like stor nytte av en AI-drevet kundeserviceagent.",
   },
 ];
 
@@ -104,6 +109,12 @@ export default function OmOssPage() {
             <h2 className="mt-4 max-w-[720px] text-[32px] font-bold leading-[1.2] sm:text-[38px]">
               Skreddersøm krever at man har sydd før.
             </h2>
+            <p className="mt-6 max-w-[680px] text-[16px] leading-[1.7] text-[var(--ink-45)]">
+              Netthandel er vår spisskompetanse, og der har vi jobbet lengst og
+              dypest. Men kompetansen som faktisk ligger bak — å kommersialisere en
+              virksomhet på nett — er ikke låst til én bransje. En bilforhandler kan
+              ha like stor nytte av en AI-drevet kundeserviceagent.
+            </p>
 
             <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {experience.map((card) => (
