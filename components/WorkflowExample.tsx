@@ -170,6 +170,13 @@ const STACK_GAP = 32; // gap between node 1 and node 2 in the left stack
 const ZZ_ROW_GAP = 32; // vertical gap between zigzag rows
 const ZZ_COL_GAP = 32; // horizontal gap between zigzag columns
 
+// Fixed height for the 4 mobile parallel-cluster blocks (Brandprofil,
+// Produktdatabase, Regelsett, SEO/AIO) so they're uniformly sized
+// regardless of content length — tall enough for the longest wrapping
+// title/subtitle pair among them, with shorter content vertically
+// centered inside via MobileNode's fixedHeight prop.
+const MOBILE_CLUSTER_ITEM_H = 96;
+
 const CLUSTER_H = BRANCH_NODES.length * NODE_H + (BRANCH_NODES.length - 1) * GAP_V;
 const BRANCH_CENTERS = BRANCH_NODES.map((_, i) => i * (NODE_H + GAP_V) + NODE_H / 2);
 
@@ -231,15 +238,29 @@ function NodeSlot({ node }: { node: NodeData }) {
   );
 }
 
-function MobileNode({ node, centered }: { node: NodeData; centered?: boolean }) {
+function MobileNode({
+  node,
+  centered,
+  fixedHeight,
+}: {
+  node: NodeData;
+  centered?: boolean;
+  fixedHeight?: number;
+}) {
   const Icon = node.icon;
   return (
     <div
+      style={fixedHeight ? { height: fixedHeight } : undefined}
       className={`min-w-0 rounded-box border border-[var(--line)] bg-paper p-3.5 ${
         centered ? "mx-auto flex w-[70%] flex-col items-center justify-center text-center" : ""
-      }`}
+      } ${fixedHeight ? "flex flex-col justify-center" : ""}`}
     >
-      <div className={`flex min-w-0 items-center gap-2 ${centered ? "justify-center" : ""}`}>
+      {/* w-full is load-bearing: without it this row is a shrink-to-fit
+          flex item (centered's parent uses items-center), so once a title
+          wraps and its content nearly fills the available width, there's
+          no slack left for justify-center to work with and the icon ends
+          up flush against the edge instead of hugging the title. */}
+      <div className={`flex w-full min-w-0 items-center gap-2 ${centered ? "justify-center" : ""}`}>
         <Icon className="shrink-0 text-[var(--chalk)]" />
         <p className="min-w-0 break-words text-[13.5px] font-semibold leading-[1.3]">{node.title}</p>
       </div>
@@ -248,22 +269,25 @@ function MobileNode({ node, centered }: { node: NodeData; centered?: boolean }) 
   );
 }
 
-function MobileFanSvg({ direction, flowing }: { direction: "in" | "out"; flowing: boolean }) {
+function MobileFanSvg({ spread, flowing }: { spread: "top" | "bottom"; flowing: boolean }) {
   // Mobile equivalent of FanSvg: the same bezier fan-out/fan-in visual
   // language, rotated to a vertical orientation so the arrow chain reads
   // as splitting into (and later converging out of) the parallel cluster
   // instead of the cluster looking like a disconnected island.
+  //
+  // `spread` picks which end (top or bottom) is the single/narrow point
+  // vs. the wide/spread end — independent of draw direction. Every path
+  // is drawn top -> bottom regardless, so the flowing-dash animation
+  // always reads as moving downward, matching the actual data flow.
   const W = 140;
   const H = 26;
   const cls = `flow-line ${flowing ? "is-flowing" : ""}`;
   const targets = [W * 0.22, W * 0.78];
   const paths = targets.map((x) => {
-    const fromX = direction === "in" ? W / 2 : x;
-    const toX = direction === "in" ? x : W / 2;
-    const fromY = direction === "in" ? 0 : H;
-    const toY = direction === "in" ? H : 0;
+    const topX = spread === "top" ? x : W / 2;
+    const bottomX = spread === "bottom" ? x : W / 2;
     const midY = H / 2;
-    return `M${fromX},${fromY} C${fromX},${midY} ${toX},${midY} ${toX},${toY}`;
+    return `M${topX},0 C${topX},${midY} ${bottomX},${midY} ${bottomX},${H}`;
   });
 
   return (
@@ -281,10 +305,16 @@ function MobileFanSvg({ direction, flowing }: { direction: "in" | "out"; flowing
             style={{ animationDelay: `${i * 90}ms` }}
           />
         ))}
-        <circle cx={W / 2} cy={direction === "in" ? 0 : H} r="3" fill="var(--chalk)" />
-        {targets.map((x, i) => (
-          <circle key={i} cx={x} cy={direction === "in" ? H : 0} r="3" fill="var(--chalk)" />
-        ))}
+        {spread === "top" ? (
+          targets.map((x, i) => <circle key={i} cx={x} cy={0} r="3" fill="var(--chalk)" />)
+        ) : (
+          <circle cx={W / 2} cy={0} r="3" fill="var(--chalk)" />
+        )}
+        {spread === "bottom" ? (
+          targets.map((x, i) => <circle key={i} cx={x} cy={H} r="3" fill="var(--chalk)" />)
+        ) : (
+          <circle cx={W / 2} cy={H} r="3" fill="var(--chalk)" />
+        )}
       </svg>
     </div>
   );
@@ -644,7 +674,7 @@ export default function WorkflowExample() {
               <MobileNode node={node} centered />
             </div>
           ))}
-          <MobileFanSvg direction="in" flowing={flowing} />
+          <MobileFanSvg spread="bottom" flowing={flowing} />
 
           <div className="rounded-box border border-dashed border-[var(--line)] p-3">
             <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--chalk)]">
@@ -652,12 +682,12 @@ export default function WorkflowExample() {
             </p>
             <div className="grid grid-cols-2 gap-2">
               {BRANCH_NODES.map((node) => (
-                <MobileNode key={node.id} node={node} />
+                <MobileNode key={node.id} node={node} fixedHeight={MOBILE_CLUSTER_ITEM_H} />
               ))}
             </div>
           </div>
 
-          <MobileFanSvg direction="out" flowing={flowing} />
+          <MobileFanSvg spread="top" flowing={flowing} />
           {TAIL_NODES.map((node, i) => (
             <div key={node.id}>
               {i > 0 && <VerticalConnector flowing={flowing} />}
