@@ -43,6 +43,7 @@
 html {
   scroll-behavior: smooth;
   background: var(--paper);
+  -webkit-tap-highlight-color: transparent;
 }
 
 @layer base {
