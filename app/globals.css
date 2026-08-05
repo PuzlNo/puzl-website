@@ -163,6 +163,14 @@ html {
   outline-offset: 2px;
 }
 
+/* Labels wrap their input/textarea but never receive focus themselves
+   (document.activeElement is always the control) — this guard just
+   forecloses any browser quirk that would paint a ring on the wrapper
+   instead of the field itself. */
+label {
+  outline: none;
+}
+
 /* Article body — typographic scale for MDX-rendered blog posts. */
 .article-body {
   font-size: 16px;
