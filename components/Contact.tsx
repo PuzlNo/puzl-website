@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import SectionEyebrow from "./SectionEyebrow";
 
 const fieldClass =
-  "border-b border-[var(--ink-25)] bg-transparent px-1 py-2.5 text-[15px] outline-none placeholder:text-[var(--ink-25)] focus:border-[var(--thread)] transition-colors";
+  "border-b border-[var(--ink-25)] bg-transparent px-1 py-2.5 text-[15px] placeholder:text-[var(--ink-25)] focus:border-[var(--thread)] transition-colors";
 
 export default function Contact() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -96,13 +96,9 @@ export default function Contact() {
               LinkedIn
             </a>
           </div>
-
-          <p className="mt-6 font-mono text-[12px] uppercase tracking-[0.1em] text-[var(--ink-45)]">
-            Vi svarer normalt innen 1–2 virkedager
-          </p>
         </div>
 
-        <div className="border border-[var(--line)] p-8 sm:p-10">
+        <div className="rounded-box border border-[var(--line)] p-8 sm:p-10">
           {status === "success" ? (
             <div>
               <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--chalk)]">Mottatt</p>
@@ -139,7 +135,11 @@ export default function Contact() {
 
               <p className="text-[12.5px] leading-[1.5] text-[var(--ink-25)]">
                 Vi bruker kun opplysningene dine til å svare på din henvendelse. Ingen
-                nyhetsbrev, ingen deling med tredjepart.
+                nyhetsbrev, ingen deling med tredjepart. Se vårt{" "}
+                <a href="#" className="stitch-link text-[var(--ink-45)] hover:text-ink transition-colors">
+                  personvern
+                </a>{" "}
+                for mer informasjon.
               </p>
 
               {status === "error" && (

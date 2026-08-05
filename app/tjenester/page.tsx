@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import SectionEyebrow from "@/components/SectionEyebrow";
 import GrainlineMark from "@/components/GrainlineMark";
@@ -85,7 +84,6 @@ const phases = [
 export default function TjenesterPage() {
   return (
     <>
-      <Nav />
       <main className="flex-1 pb-28">
         <section className="px-6 pt-32 sm:pt-36">
           <div className="mx-auto max-w-[1180px]">

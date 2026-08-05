@@ -22,7 +22,7 @@ export default function Nav() {
               <Image src="/logo.svg" alt="Puzl" width={92} height={24} priority />
             </Link>
 
-            <nav className="hidden lg:flex items-center gap-8 font-mono text-[12.5px] uppercase tracking-wide text-[var(--ink-70)]">
+            <nav className="hidden lg:flex items-center gap-8 font-mono text-[12.5px] text-[var(--ink-70)]">
               {links.map((link) => (
                 <Link key={link.href} href={link.href} className="stitch-link hover:text-ink transition-colors">
                   {link.label}
@@ -67,7 +67,7 @@ export default function Nav() {
         </div>
 
         {open && (
-          <nav className="rounded-box absolute inset-x-0 top-full mt-2 flex flex-col gap-1 border border-[var(--line)] bg-paper/95 p-2 font-mono text-[13px] uppercase tracking-wide text-[var(--ink-70)] shadow-sm backdrop-blur-md lg:hidden">
+          <nav className="rounded-box absolute inset-x-0 top-full mt-2 flex flex-col gap-1 border border-[var(--line)] bg-paper/95 p-2 font-mono text-[13px] text-[var(--ink-70)] shadow-sm backdrop-blur-md lg:hidden">
             {links.map((link) => (
               <Link
                 key={link.href}

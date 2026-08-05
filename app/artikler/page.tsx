@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import SectionEyebrow from "@/components/SectionEyebrow";
 import GrainlineMark from "@/components/GrainlineMark";
@@ -24,7 +23,6 @@ export default function ArtiklerPage() {
 
   return (
     <>
-      <Nav />
       <main className="flex-1 px-6 pt-32 pb-28 sm:pt-36">
         <div className="mx-auto max-w-[1180px]">
           <SectionEyebrow label="Artikler" />

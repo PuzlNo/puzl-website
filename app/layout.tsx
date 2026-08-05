@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Work_Sans, IBM_Plex_Mono } from "next/font/google";
+import Nav from "@/components/Nav";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -42,6 +43,7 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${workSans.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-paper text-ink">
+        <Nav />
         {children}
       </body>
     </html>

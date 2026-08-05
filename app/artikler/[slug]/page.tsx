@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image, { type ImageProps } from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import SectionEyebrow from "@/components/SectionEyebrow";
 import { getAllSlugs, getPostBySlug } from "@/lib/posts";
@@ -91,7 +90,6 @@ export default async function ArtikkelPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
-      <Nav />
       <main className="flex-1 px-6 pt-32 pb-28 sm:pt-36">
         <article className="mx-auto max-w-[70ch]">
           <SectionEyebrow label="Artikkel" />
