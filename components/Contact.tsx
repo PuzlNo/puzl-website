@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import SectionEyebrow from "./SectionEyebrow";
 
 const fieldClass =
-  "border-b border-[var(--ink-25)] bg-transparent px-1 py-2.5 text-[15px] placeholder:text-[var(--ink-25)] focus:border-[var(--thread)] transition-colors";
+  "border-b border-[var(--ink-25)] bg-transparent px-1 py-2.5 text-[15px] placeholder:text-[var(--ink-25)] outline-none";
 
 export default function Contact() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");

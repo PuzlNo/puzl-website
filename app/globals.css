@@ -163,6 +163,13 @@ html {
   outline-offset: 2px;
 }
 
+/* Contact form fields intentionally show no focus ring/border at all —
+   only the native text caret indicates focus there. */
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+}
+
 /* Labels wrap their input/textarea but never receive focus themselves
    (document.activeElement is always the control) — this guard just
    forecloses any browser quirk that would paint a ring on the wrapper
