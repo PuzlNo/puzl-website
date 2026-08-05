@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import SectionEyebrow from "./SectionEyebrow";
 
 const fieldClass =
@@ -136,9 +137,9 @@ export default function Contact() {
               <p className="text-[12.5px] leading-[1.5] text-[var(--ink-25)]">
                 Vi bruker kun opplysningene dine til å svare på din henvendelse. Ingen
                 nyhetsbrev, ingen deling med tredjepart. Se vårt{" "}
-                <a href="#" className="stitch-link text-[var(--ink-45)] hover:text-ink transition-colors">
+                <Link href="/personvern" className="stitch-link text-[var(--ink-45)] hover:text-ink transition-colors">
                   personvern
-                </a>{" "}
+                </Link>{" "}
                 for mer informasjon.
               </p>
 

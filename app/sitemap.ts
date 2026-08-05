@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/tjenester`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/om-oss`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/kontakt`, changeFrequency: "yearly", priority: 0.6 },
+    { url: `${BASE_URL}/personvern`, changeFrequency: "yearly", priority: 0.3 },
     { url: `${BASE_URL}/artikler`, changeFrequency: "weekly", priority: 0.7 },
   ];
 
