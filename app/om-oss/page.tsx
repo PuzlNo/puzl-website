@@ -27,6 +27,34 @@ const pillars = [
   },
 ];
 
+const experience = [
+  {
+    tag: "SPENN",
+    title: "Fra 0 til 250 millioner",
+    text: "Vi har jobbet med virksomheter fra 0 til 250 millioner kroner i omsetning, med over 15 års erfaring fra netthandel, kommersiell strategi og systemarkitektur. De fleste byråer er enten tekniske spesialister eller strategikonsulenter — sjelden begge deler samtidig.",
+  },
+  {
+    tag: "VEKST",
+    title: "Kommersiell vekst, målbart",
+    text: "Vi har tatt en virksomhet fra 200 000 til 15 millioner kroner i omsetning på halvannet år gjennom kommersiell strategi fremfor tilfeldige eksperimenter — og effektivisert eksisterende systemer på måter som har spart virksomheter for titalls millioner kroner og flere års arbeid.",
+  },
+  {
+    tag: "ARKITEKTUR",
+    title: "Rigget for skalering",
+    text: "Systemarkitekturen vi bygger er alltid rigget for vekst — ikke bare for å løse dagens problem, men for at virksomheten skal kunne bruke tiden sin på salg og utvikling i stedet for å drukne i drift når den vokser.",
+  },
+  {
+    tag: "SYNLIGHET",
+    title: "SEO, AIO og GEO",
+    text: "Vi har dyp kompetanse på optimalisering for KI-drevne søk og generative motorer, og på beste praksis på tvers av plattformvalg, kodearkitektur og arbeidsflyt — blant annet hvordan nettbutikker bør bruke E-E-A-T og topical authority for å bygge organisk synlighet over tid.",
+  },
+  {
+    tag: "SPESIALISERING",
+    title: "Netthandel som kjerne",
+    text: "Netthandel er vår spisskompetanse, og der har vi jobbet lengst og dypest. Men kompetansen som faktisk ligger bak — å kommersialisere en virksomhet på nett — er ikke låst til én bransje. En bilforhandler kan ha like stor nytte av en AI-drevet kundeserviceagent.",
+  },
+];
+
 export default function OmOssPage() {
   return (
     <>
@@ -77,45 +105,22 @@ export default function OmOssPage() {
               Skreddersøm krever at man har sydd før.
             </h2>
 
-            <div className="mt-8 flex max-w-[760px] flex-col gap-6 text-[16px] leading-[1.75] text-[var(--ink-45)]">
-              <p>
-                Vi har jobbet med virksomheter fra 0 til 250 millioner kroner i
-                omsetning, og har over 15 års erfaring med netthandel, kommersiell
-                strategi og systemarkitektur. Det er en kombinasjon du sjelden finner
-                samlet — de fleste byråer er enten tekniske spesialister eller
-                strategikonsulenter, sjelden begge deler samtidig. Det er denne
-                kombinasjonen som gjør at skreddersøm faktisk er mulig i praksis, og
-                ikke bare et ord på nettsiden.
-              </p>
-              <p>
-                Den kommersielle siden handler om vekst som lar seg måle. Vi har blant
-                annet tatt en virksomhet fra 200 000 til 15 millioner kroner i
-                omsetning på halvannet år gjennom kommersiell strategi fremfor
-                tilfeldige eksperimenter, og vi har effektivisert og bygget om
-                eksisterende systemer på en måte som har spart virksomheter for
-                titalls millioner kroner og flere års arbeid.
-              </p>
-              <p>
-                Systemarkitekturen vi bygger er alltid rigget for vekst — ikke bare
-                for å løse dagens problem, men for at virksomheten skal kunne bruke
-                tiden sin på salg og utvikling i stedet for å drukne i drift når den
-                vokser.
-              </p>
-              <p>
-                Vi har også dyp kompetanse på SEO og AIO/GEO — optimalisering for
-                KI-drevne søk og generative motorer — og på beste praksis på tvers av
-                plattformvalg, kodearkitektur og arbeidsflyt for netthandel, blant
-                annet hvordan nettbutikker bør bruke E-E-A-T og topical authority for
-                å bygge organisk synlighet over tid.
-              </p>
-              <p>
-                Netthandel er vår spisskompetanse, og der har vi jobbet lengst og
-                dypest. Men kompetansen som faktisk ligger bak — å kommersialisere en
-                virksomhet på nett — er ikke låst til én bransje. Den samme tenkingen
-                som bygger en nettbutikk som konverterer, er det som gjør at for
-                eksempel en bilforhandler kan ha nytte av en AI-drevet
-                kundeserviceagent. Vi følger kompetansen, ikke en fast bransjemal.
-              </p>
+            <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {experience.map((card) => (
+                <div
+                  key={card.title}
+                  className="rounded-box border border-[var(--line)] bg-paper p-7 transition-colors hover:bg-[var(--paper-3)]"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <GrainlineMark size={18} className="shrink-0 text-[var(--chalk)]" />
+                    <h3 className="text-[18px] font-semibold">{card.title}</h3>
+                  </div>
+                  <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--chalk)]">
+                    {card.tag}
+                  </p>
+                  <p className="mt-2.5 text-[14.5px] leading-[1.6] text-[var(--ink-45)]">{card.text}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
