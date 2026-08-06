@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import Image, { type ImageProps } from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Footer from "@/components/Footer";
-import SectionEyebrow from "@/components/SectionEyebrow";
+import ArticleCover from "@/components/ArticleCover";
 import JsonLd from "@/components/JsonLd";
-import { getAllSlugs, getPostBySlug } from "@/lib/posts";
+import { getAllSlugs, getPostBySlug, formatReadingTime } from "@/lib/posts";
 import { breadcrumbJsonLd } from "@/lib/structured-data";
 
 export const dynamicParams = false;
@@ -23,23 +24,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPostBySlug(slug);
   if (!post) return {};
 
-  const { title, description, publishedAt, updatedAt, author, coverImage } = post.frontmatter;
+  const { title, summary, publishedAt, updatedAt, author } = post.frontmatter;
 
   return {
     title,
-    description,
+    description: summary,
     alternates: {
       canonical: `/artikler/${slug}`,
     },
     openGraph: {
       title,
-      description,
+      description: summary,
       type: "article",
       publishedTime: publishedAt,
       modifiedTime: updatedAt ?? publishedAt,
       authors: [author],
       url: `/artikler/${slug}`,
-      images: coverImage ? [coverImage] : undefined,
     },
   };
 }
@@ -71,19 +71,18 @@ export default async function ArtikkelPage({ params }: Props) {
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
-  const { title, description, publishedAt, updatedAt, author, coverImage } = post.frontmatter;
+  const { title, summary, publishedAt, updatedAt, author } = post.frontmatter;
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: title,
-    description,
+    description: summary,
     datePublished: publishedAt,
     dateModified: updatedAt ?? publishedAt,
     author: { "@type": "Organization", name: author },
     publisher: { "@type": "Organization", name: "Puzl" },
     mainEntityOfPage: `https://puzl.no/artikler/${slug}`,
-    ...(coverImage ? { image: coverImage } : {}),
   };
 
   const breadcrumbs = breadcrumbJsonLd([
@@ -98,22 +97,26 @@ export default async function ArtikkelPage({ params }: Props) {
       <JsonLd data={breadcrumbs} />
       <main className="flex-1 px-6 pt-32 pb-28 sm:pt-36">
         <article className="mx-auto max-w-[70ch]">
-          <SectionEyebrow label="Artikkel" />
+          <Link
+            href="/artikler"
+            className="stitch-link inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.14em] text-[var(--chalk)] transition-colors hover:text-ink"
+          >
+            <span aria-hidden="true">←</span>
+            Alle artikler
+          </Link>
           <h1 className="mt-4 text-[32px] font-bold leading-[1.15] sm:text-[42px]">{title}</h1>
           <p className="mt-4 font-mono text-[12px] uppercase tracking-[0.1em] text-[var(--ink-45)]">
-            {formatDate(publishedAt)} · {author}
+            {formatDate(publishedAt)} · {author} · {formatReadingTime(post.content)}
           </p>
 
-          {coverImage && (
-            <Image
-              src={coverImage}
-              alt=""
-              width={1400}
-              height={800}
-              className="rounded-box mt-8 w-full"
-              priority
-            />
-          )}
+          <ArticleCover seed={slug} className="mt-8 aspect-[16/9] w-full" />
+
+          <section className="mt-8 rounded-box bg-ink px-6 py-6 text-paper sm:px-8 sm:py-7">
+            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--chalk)]">
+              Oppsummering av artikkelen
+            </p>
+            <p className="mt-3 text-[15px] leading-[1.7] text-[var(--paper-70)]">{summary}</p>
+          </section>
 
           <div className="article-body mt-10">
             <MDXRemote source={post.content} components={mdxComponents} />
