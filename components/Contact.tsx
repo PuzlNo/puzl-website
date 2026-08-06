@@ -51,7 +51,8 @@ export default function Contact() {
             La oss ta en kaffe ☕
           </h2>
           <p className="mt-4 max-w-[440px] text-[16px] leading-[1.6] text-[var(--ink-45)]">
-            Ta kontakt så finner vi ut om vi er riktig match for det du prøver å bygge.
+            Ta kontakt om ditt neste prosjekt, så finner vi ut om vi er riktig match for
+            det du prøver å bygge. Vi tilpasser oss din virksomhet og dine systemer.
           </p>
 
           <div className="mt-8 flex flex-col gap-3">
@@ -75,7 +76,7 @@ export default function Contact() {
               hei@puzl.no
             </a>
             <a
-              href="https://linkedin.com/company/puzl"
+              href="https://www.linkedin.com/company/puzlno"
               target="_blank"
               rel="noopener noreferrer"
               className="stitch-link flex w-fit items-center gap-2.5 text-[15px] text-[var(--ink-70)] hover:text-ink transition-colors"

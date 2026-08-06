@@ -29,16 +29,16 @@ export default function Hero() {
         <h1 className="animate-fade-up text-[42px] leading-[1.05] font-bold sm:text-[64px] lg:text-[76px] xl:text-[80px]" style={{ animationDelay: "0.1s" }}>
           Ikke hyllevare.
           <br />
-          <span style={{ color: "var(--chalk)" }}>Tilpasset AI.</span>
+          <span style={{ color: "var(--chalk)" }}>Tilpasset AI</span>
         </h1>
 
         <p
           className="animate-fade-up mt-6 max-w-[600px] text-[17px] leading-[1.6] text-[var(--ink-70)]"
           style={{ animationDelay: "0.2s" }}
         >
-          Markedet flommer over av generiske verktøy bygget for å passe alle — og dermed
-          perfekte for ingen. Vi bygger AI-løsninger skreddersydd til din bedrift, dine
-          systemer og dine mål.
+          Markedet flommer over av generiske verktøy bygget for å passe alle — og er
+          derfor ikke perfekte for noen. Vi bygger AI-løsninger skreddersydd til din
+          bedrift, dine systemer og dine mål.
         </p>
 
         <div

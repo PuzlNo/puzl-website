@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import Delivered from "@/components/Delivered";
 import Approach from "@/components/Approach";
+import PricingModel from "@/components/PricingModel";
 import WorkflowExample from "@/components/WorkflowExample";
 import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
@@ -12,6 +13,7 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <Approach />
+        <PricingModel />
         <Delivered />
         <WorkflowExample />
         <Skills />

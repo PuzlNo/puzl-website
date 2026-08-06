@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://puzl.no"),
   title: {
     template: "%s | Puzl",
-    default: "Puzl — Skreddersydde AI-løsninger",
+    default: "Puzl | Skreddersydde AI-løsninger",
   },
   description:
     "Vi bygger AI-løsninger skreddersydd til din bedrift, dine systemer og dine mål.",

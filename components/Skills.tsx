@@ -9,6 +9,7 @@ const groups = [
       "Vektordatabaser & embedding-pipelines",
       "Skalerbar serverless AI-infrastruktur",
       "AI-drevet systemarkitektur",
+      "Automatiserte databaser",
     ],
   },
   {
@@ -27,11 +28,19 @@ const groups = [
       "Multisystem-integrasjon via MCP / API / CLI",
       "Automasjon med kommersiell intent",
       "AI-drevet innholdspipeline",
+      "Tilkobling til eksterne løsninger",
+      "Helhetlig tilknyttet systemarkitektur",
     ],
   },
   {
     label: "Vekst",
-    items: ["SEO-, AIO- & GEO-optimalisering", "Kommersiell vekstinfrastruktur"],
+    items: [
+      "SEO-, AIO- & GEO-optimalisering",
+      "Kommersiell vekstinfrastruktur",
+      "Kommersiell vekststrategi",
+      "Skalerbare systemer",
+      "Sømløs automasjon",
+    ],
   },
 ];
 
@@ -43,14 +52,14 @@ export default function Skills() {
           <div>
             <SectionEyebrow label="Dette leverer vi" />
             <h2 className="mt-4 text-[36px] font-bold sm:text-[44px]">
-              Teknologien under panseret.
+              Teknologien under panseret
             </h2>
           </div>
           <div className="border-l border-[var(--line)] pl-7">
             <p className="text-[15px] leading-[1.7] text-[var(--ink-45)]">
-              Vi kombinerer avanserte datamodeller med kommersiell forståelse. Det tekniske er
-              aldri et mål i seg selv — det er det som gjør at løsningene skalerer, integrerer
-              og leverer verdi over tid.
+              Vi kombinerer avanserte datamodeller og robuste datastrukturer med kommersiell
+              forståelse. Det tekniske er aldri et mål i seg selv, det er det som gjør at
+              løsningene skalerer, integrerer og leverer verdi over tid.
             </p>
           </div>
         </div>

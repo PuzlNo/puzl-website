@@ -5,32 +5,32 @@ const cards = [
   {
     tag: "Innhold",
     title: "Innholdsagent",
-    text: "AI som skriver, kvalitetssikrer og publiserer produkttekster og kategorisider automatisk — tilpasset merkevare, tone og SEO-krav.",
+    text: "AI som skriver, kvalitetssikrer og publiserer produkttekster, bloggposter og kategoritekster automatisk, tilpasset merkevare, tone og SEO-krav.",
   },
   {
     tag: "Kunnskap",
     title: "Kunnskapsplattform",
-    text: "Intern AI med tilgang til produkter, videoer og dokumentasjon — svarer ansatte og kunder i sanntid med presis, kontekstuell informasjon.",
+    text: "Intern AI med tilgang til produkter, videoer og dokumentasjon, svarer ansatte og kunder i sanntid med presis informasjon.",
   },
   {
     tag: "Service",
     title: "Serviceagent",
-    text: "Autonom kundeservice integrert mot ordresystem og FAQ — håndterer henvendelser selvstendig og eskalerer til menneske når nødvendig.",
+    text: "Autonom kundeservice integrert mot ordresystem, produkter, dokumentasjon og kundedialoger, håndterer henvendelser selvstendig og presist mens den reduserer arbeidsmengden.",
   },
   {
-    tag: "Pipeline",
+    tag: "SEO/AIO",
     title: "Innholdspipeline",
-    text: "Automatisert SEO-produksjon fra søkedata til publisert innhold — uten manuell innsats. Henter søkeintensjoner, genererer innhold og sender direkte til CMS.",
+    text: "Automatisert SEO og AIO-produksjon fra søkedata til publisert innhold, uten manuell innsats. Henter søkeintensjoner, genererer innhold og sender direkte til nettsiden.",
   },
   {
     tag: "Logistikk",
     title: "Logistikkagent",
-    text: "AI som overvåker, koordinerer og optimaliserer logistikkflyt — integrert mot lagersystem og leverandører for sanntidsstyring.",
+    text: "AI som overvåker, koordinerer, anbefaler og optimaliserer logistikkflyt, integrert mot lagersystem og leverandører for sanntidsstyring med salgs- og innkjøpsanbefaling.",
   },
   {
     tag: "Marked",
     title: "Markedsføringsagent",
-    text: "Autonom agent som planlegger, produserer og distribuerer kampanjeinnhold på tvers av kanaler — basert på målgruppe, sesong og ytelsesdata.",
+    text: "Autonom agent som planlegger, produserer og distribuerer kampanjeinnhold på tvers av kanaler, bygger kampanjer, salgsinnhold og markedsplaner.",
   },
 ];
 
@@ -51,9 +51,9 @@ export default function Delivered() {
     <section id="levert" className="border-y border-[var(--line)] bg-paper-2 px-6 py-28">
       <div className="mx-auto max-w-[1180px]">
         <SectionEyebrow label="Løsninger vi har levert" />
-        <h2 className="mt-4 text-[36px] font-bold sm:text-[44px]">Det vi har bygget.</h2>
+        <h2 className="mt-4 text-[36px] font-bold sm:text-[44px]">Noe av hva vi har bygget</h2>
         <p className="mt-4 max-w-[560px] text-[16px] leading-[1.6] text-[var(--ink-45)]">
-          Et utvalg av AI-systemer vi har designet, utviklet og satt i produksjon for reelle
+          Et utvalg av AI-systemer vi har designet, utviklet og lansert for reelle
           virksomheter.
         </p>
 

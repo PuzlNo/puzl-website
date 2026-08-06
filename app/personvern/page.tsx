@@ -33,7 +33,7 @@ export default function PersonvernPage() {
             <p>
               Når du fyller ut kontaktskjemaet på{" "}
               <a href="/kontakt">/kontakt</a>, samler vi inn det du selv skriver: navn,
-              e-post, eventuelt telefonnummer, og meldingen din. Det er alt — vi ber ikke
+              e-post, eventuelt telefonnummer, og meldingen din. Det er alt. Vi ber ikke
               om, og lagrer ikke, noe utover dette.
             </p>
 
@@ -48,14 +48,14 @@ export default function PersonvernPage() {
               Når du sender skjemaet, blir innholdet sendt direkte som en e-post til{" "}
               <a href="mailto:hei@puzl.no">hei@puzl.no</a> via e-posttjenesten Resend, med
               din e-postadresse satt som svar-til-adresse. Opplysningene lagres ikke i noen
-              database eller CRM hos oss — de finnes kun i selve e-posten, på samme måte
+              database eller CRM hos oss, de finnes kun i selve e-posten, på samme måte
               som om du hadde sendt oss en e-post direkte.
             </p>
 
             <h2>Hvor lenge vi oppbevarer opplysningene</h2>
             <p>
               Vi har ingen formell slettefrist, men opplysningene beholdes ikke lenger enn
-              det som er nødvendig for å følge opp henvendelsen din — normalt så lenge
+              det som er nødvendig for å følge opp henvendelsen din, normalt så lenge
               e-posttråden er relevant for dialogen mellom oss.
             </p>
 

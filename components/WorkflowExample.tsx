@@ -614,13 +614,13 @@ export default function WorkflowExample() {
     <section className="overflow-x-hidden px-6 py-28">
       <div ref={sectionRef}>
         <div className="mx-auto max-w-[1180px]">
-          <SectionEyebrow label="Et eksempel: Innholdsagent" />
+          <SectionEyebrow label="Hvordan vi har bygget en innholdsagent" />
           <h2 className="mt-4 text-[32px] font-bold sm:text-[38px]">
-            Fra data til publisert tekst.
+            Fra data til publisert tekst
           </h2>
           <p className="mt-4 max-w-[640px] text-[16px] leading-[1.7] text-[var(--ink-45)]">
-            Slik ser Innholdsagent ut i praksis — ett konkret eksempel på hva skreddersydd
-            betyr, ikke en generisk mal.
+            Slik kan en innholdsagent se ut i praksis implementert til systemene du bruker,
+            ett konkret eksempel på hva skreddersydd betyr, ikke en generisk mal.
           </p>
         </div>
 

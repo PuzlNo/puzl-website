@@ -26,7 +26,7 @@ export default function ArtiklerPage() {
       <main className="flex-1 px-6 pt-32 pb-28 sm:pt-36">
         <div className="mx-auto max-w-[1180px]">
           <SectionEyebrow label="Artikler" />
-          <h1 className="mt-4 text-[36px] font-bold sm:text-[44px]">Ting vi tenker på.</h1>
+          <h1 className="mt-4 text-[36px] font-bold sm:text-[44px]">Ting vi tenker på</h1>
           <p className="mt-4 max-w-[560px] text-[16px] leading-[1.6] text-[var(--ink-45)]">
             Notater om skreddersydd AI, tilnærmingen vår og hva vi lærer underveis.
           </p>

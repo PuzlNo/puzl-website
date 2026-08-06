@@ -5,12 +5,12 @@ const pillars = [
   {
     tag: "MÅL",
     title: "Systemagnostisk",
-    text: "Vi møter deg der du er. Eksisterende stack, egne datamodeller, interne verktøy — AI-en bygges rundt din virksomhet, ikke omvendt.",
+    text: "Vi møter deg der du er. Eksisterende systemer, datamodeller og interne verktøy, AI-verktøyene bygges rundt din virksomhet, ikke omvendt.",
   },
   {
     tag: "SNITT",
     title: "Skreddersydd funksjon",
-    text: "Ingen unødvendige features, ingen lisenskostnader for det du aldri bruker. Løsningen gjør akkurat det din bedrift trenger — ingenting mer.",
+    text: "Ingen unødvendige funksjoner, ingen lisenskostnader for det du aldri bruker. Løsningen gjør akkurat det din bedrift trenger, ingenting mer.",
   },
   {
     tag: "SØM",
@@ -31,10 +31,10 @@ export default function Approach() {
         </blockquote>
 
         <p className="mt-6 max-w-[680px] text-[16px] leading-[1.7] text-[var(--paper-70)]">
-          Markedet flommer over av generiske SaaS-verktøy bygget for å passe alle — og dermed
-          perfekte for ingen. Vi tar en annen tilnærming. Uansett hvilke systemer du bruker i
-          dag, skreddersyr vi AI-løsninger som integrerer sømløst, tilpasses din arbeidsflyt og
-          leverer kommersiell verdi fra dag én.
+          De fleste AI-verktøyene på markedet er bygget for å passe alle, og er som oftest
+          ikke perfekt for din bedrift. Vi tar en annen tilnærming. Uansett hvilke systemer
+          du bruker i dag, skreddersyr vi AI-løsninger som integrerer sømløst, tilpasses din
+          arbeidsflyt og leverer kommersiell verdi fra dag én.
         </p>
 
         <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3">
