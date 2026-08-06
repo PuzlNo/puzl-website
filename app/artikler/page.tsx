@@ -5,7 +5,7 @@ import SectionEyebrow from "@/components/SectionEyebrow";
 import GrainlineMark from "@/components/GrainlineMark";
 import ArticleCover from "@/components/ArticleCover";
 import JsonLd from "@/components/JsonLd";
-import { getAllPosts, formatReadingTime } from "@/lib/posts";
+import { getAllPosts, formatReadingTime, truncateForMetaDescription } from "@/lib/posts";
 import { breadcrumbJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
@@ -63,7 +63,7 @@ export default function ArtiklerPage() {
                       {formatDate(post.frontmatter.publishedAt)} · {formatReadingTime(post.content)}
                     </p>
                     <p className="mt-2.5 text-[14.5px] leading-[1.6] text-[var(--ink-45)]">
-                      {post.frontmatter.summary}
+                      {truncateForMetaDescription(post.frontmatter.summary, 220)}
                     </p>
                   </div>
                 </Link>

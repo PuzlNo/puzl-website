@@ -6,7 +6,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import Footer from "@/components/Footer";
 import ArticleCover from "@/components/ArticleCover";
 import JsonLd from "@/components/JsonLd";
-import { getAllSlugs, getPostBySlug, formatReadingTime } from "@/lib/posts";
+import { getAllSlugs, getPostBySlug, formatReadingTime, truncateForMetaDescription } from "@/lib/posts";
 import { breadcrumbJsonLd } from "@/lib/structured-data";
 
 export const dynamicParams = false;
@@ -25,16 +25,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) return {};
 
   const { title, summary, publishedAt, updatedAt, author } = post.frontmatter;
+  const metaDescription = truncateForMetaDescription(summary);
 
   return {
     title,
-    description: summary,
+    description: metaDescription,
     alternates: {
       canonical: `/artikler/${slug}`,
     },
     openGraph: {
       title,
-      description: summary,
+      description: metaDescription,
       type: "article",
       publishedTime: publishedAt,
       modifiedTime: updatedAt ?? publishedAt,

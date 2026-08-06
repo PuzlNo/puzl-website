@@ -6,8 +6,13 @@ const POSTS_DIR = path.join(process.cwd(), "content", "posts");
 
 export type PostFrontmatter = {
   title: string;
-  /** TL;DR key-takeaway summary — single source for the on-page summary
-   * section, the meta description, and the BlogPosting JSON-LD description. */
+  /** Full TL;DR key-takeaway summary — single source for the on-page
+   * summary section and the BlogPosting JSON-LD description, both of
+   * which benefit from complete, extractable answers with no meaningful
+   * length constraint. For the HTML meta description and og:description,
+   * which do get truncated in classic search/social contexts, derive a
+   * shorter excerpt with `truncateForMetaDescription` instead of writing
+   * a second field — that would duplicate hand-authored copy. */
   summary: string;
   slug: string;
   publishedAt: string;
@@ -73,4 +78,32 @@ export function getReadingTimeMinutes(content: string): number {
 
 export function formatReadingTime(content: string): string {
   return `${getReadingTimeMinutes(content)} min lesetid`;
+}
+
+const META_DESCRIPTION_TARGET_LENGTH = 160;
+
+/**
+ * Derives a snippet-safe excerpt from the full `summary` for contexts that
+ * truncate (HTML meta description, og:description) — cuts at the nearest
+ * sentence boundary at or under the target length, falling back to the
+ * nearest word boundary with an ellipsis. Keeps `summary` as the single
+ * authored source instead of maintaining a separate short field.
+ */
+export function truncateForMetaDescription(
+  summary: string,
+  maxLength: number = META_DESCRIPTION_TARGET_LENGTH
+): string {
+  if (summary.length <= maxLength) return summary;
+
+  const sentences = summary.match(/[^.!?]+[.!?]+/g) ?? [summary];
+  let excerpt = "";
+  for (const sentence of sentences) {
+    if ((excerpt + sentence).trim().length > maxLength) break;
+    excerpt += sentence;
+  }
+  excerpt = excerpt.trim();
+  if (excerpt) return excerpt;
+
+  const truncated = summary.slice(0, maxLength);
+  return `${truncated.slice(0, truncated.lastIndexOf(" "))}…`;
 }
