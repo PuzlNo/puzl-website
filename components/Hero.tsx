@@ -27,7 +27,7 @@ export default function Hero() {
         </div>
 
         <h1 className="animate-fade-up text-[42px] leading-[1.05] font-bold sm:text-[64px] lg:text-[76px] xl:text-[80px]" style={{ animationDelay: "0.1s" }}>
-          Ikke hyllevare.
+          Ikke hyllevare
           <br />
           <span style={{ color: "var(--chalk)" }}>Tilpasset AI</span>
         </h1>
