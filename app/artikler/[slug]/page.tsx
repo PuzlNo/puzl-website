@@ -96,7 +96,7 @@ export default async function ArtikkelPage({ params }: Props) {
       <JsonLd data={jsonLd} />
       <JsonLd data={breadcrumbs} />
       <main className="flex-1 px-6 pt-32 pb-28 sm:pt-36">
-        <article className="mx-auto max-w-[70ch]">
+        <article className="mx-auto max-w-[91ch]">
           <Link
             href="/artikler"
             className="stitch-link inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.14em] text-[var(--chalk)] transition-colors hover:text-ink"
