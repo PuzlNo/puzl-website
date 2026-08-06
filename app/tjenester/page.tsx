@@ -91,7 +91,7 @@ const phases = [
   },
   {
     title: "Design / Skreddersøm",
-    text: "Basert på kartleggingen definerer vi den konkrete løsningen: hvilke systemer den skal integreres med, hva den skal automatisere, og hvor grensen går for hva agenten gjør selv versus overlater til et menneske. Her blir «skreddersydd» konkret, en spesifikk spesifikasjon for akkurat deres virksomhet, ikke et prinsipp på et slide.",
+    text: "Basert på kartleggingen definerer vi den konkrete løsningen: hvilke systemer den skal integreres med, hva den skal automatisere, og hvor grensen går for hva en AI-agenten gjør selv og hva som overlates til en ansatt. Her blir «skreddersydd» konkret, en spesifikk spesifikasjon for akkurat deres virksomhet, ikke et prinsipp på et slide.",
   },
   {
     title: "Bygging / Implementering",
@@ -99,7 +99,7 @@ const phases = [
   },
   {
     title: "Levering / Oppfølging",
-    text: "Ved levering går vi gjennom løsningen sammen med teamet deres, slik at dere forstår hvordan den fungerer og kan justere den videre selv. Vi følger opp etter lansering, men vi er et lite team uten formaliserte SLA-er ennå. Oppfølging avtales konkret per prosjekt, ikke som en generisk supportpakke.",
+    text: "Ved levering går vi gjennom løsningen sammen med teamet deres, slik at dere forstår hvordan den fungerer og kan justere den videre selv. Vi følger opp etter lansering og monitorerer helsen til systemet kontinuerlig. Oppfølging avtales konkret per prosjekt, ikke som en generisk supportpakke.",
   },
 ];
 
@@ -167,7 +167,7 @@ export default function TjenesterPage() {
                       : ""
                   }
                 >
-                  <p className="font-mono text-[13px] text-[var(--chalk)]">0{i + 1}</p>
+                  <p className="font-mono text-[13px] text-[var(--chalk)]">{i + 1}</p>
                   <h3 className="mt-2 text-[18px] font-semibold">{phase.title}</h3>
                   <p className="mt-3 text-[14.5px] leading-[1.7] text-[var(--ink-45)]">
                     {phase.text}
