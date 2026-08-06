@@ -2,12 +2,19 @@ import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import SectionEyebrow from "@/components/SectionEyebrow";
 import GrainlineMark from "@/components/GrainlineMark";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: "Tjenester",
   description:
     "Et utvalg av AI-løsningene Puzl bygger og skreddersyr til virksomheten din.",
 };
+
+const breadcrumbs = breadcrumbJsonLd([
+  { name: "Hjem", path: "/" },
+  { name: "Tjenester", path: "/tjenester" },
+]);
 
 const services = [
   {
@@ -60,6 +67,21 @@ const services = [
   },
 ];
 
+const servicesJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: services.map((service, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "Service",
+      name: service.title,
+      description: service.summary,
+      provider: { "@type": "Organization", name: "Puzl" },
+    },
+  })),
+};
+
 // DRAFT — describes actual operational process, not pure marketing copy.
 // Needs review/editing against how projects genuinely run before shipping as final.
 const phases = [
@@ -84,6 +106,8 @@ const phases = [
 export default function TjenesterPage() {
   return (
     <>
+      <JsonLd data={breadcrumbs} />
+      <JsonLd data={servicesJsonLd} />
       <main className="flex-1 pb-28">
         <section className="px-6 pt-32 sm:pt-36">
           <div className="mx-auto max-w-[1180px]">

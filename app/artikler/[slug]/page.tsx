@@ -4,7 +4,9 @@ import Image, { type ImageProps } from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Footer from "@/components/Footer";
 import SectionEyebrow from "@/components/SectionEyebrow";
+import JsonLd from "@/components/JsonLd";
 import { getAllSlugs, getPostBySlug } from "@/lib/posts";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
 
 export const dynamicParams = false;
 
@@ -84,12 +86,16 @@ export default async function ArtikkelPage({ params }: Props) {
     ...(coverImage ? { image: coverImage } : {}),
   };
 
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: "Hjem", path: "/" },
+    { name: "Artikler", path: "/artikler" },
+    { name: title, path: `/artikler/${slug}` },
+  ]);
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
-      />
+      <JsonLd data={jsonLd} />
+      <JsonLd data={breadcrumbs} />
       <main className="flex-1 px-6 pt-32 pb-28 sm:pt-36">
         <article className="mx-auto max-w-[70ch]">
           <SectionEyebrow label="Artikkel" />

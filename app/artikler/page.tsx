@@ -3,12 +3,19 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 import SectionEyebrow from "@/components/SectionEyebrow";
 import GrainlineMark from "@/components/GrainlineMark";
+import JsonLd from "@/components/JsonLd";
 import { getAllPosts } from "@/lib/posts";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: "Artikler",
   description: "Tanker om skreddersydd AI, fra Puzl.",
 };
+
+const breadcrumbs = breadcrumbJsonLd([
+  { name: "Hjem", path: "/" },
+  { name: "Artikler", path: "/artikler" },
+]);
 
 function formatDate(dateString: string) {
   return new Date(dateString).toLocaleDateString("nb-NO", {
@@ -23,6 +30,7 @@ export default function ArtiklerPage() {
 
   return (
     <>
+      <JsonLd data={breadcrumbs} />
       <main className="flex-1 px-6 pt-32 pb-28 sm:pt-36">
         <div className="mx-auto max-w-[1180px]">
           <SectionEyebrow label="Artikler" />

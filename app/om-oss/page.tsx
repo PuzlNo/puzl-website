@@ -2,6 +2,13 @@ import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import SectionEyebrow from "@/components/SectionEyebrow";
 import GrainlineMark from "@/components/GrainlineMark";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
+
+const breadcrumbs = breadcrumbJsonLd([
+  { name: "Hjem", path: "/" },
+  { name: "Om oss", path: "/om-oss" },
+]);
 
 export const metadata: Metadata = {
   title: "Om oss",
@@ -63,6 +70,7 @@ const experience = [
 export default function OmOssPage() {
   return (
     <>
+      <JsonLd data={breadcrumbs} />
       <main className="flex-1 pb-28">
         <section className="px-6 pt-32 sm:pt-36">
           <div className="mx-auto max-w-[1180px]">

@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import SectionEyebrow from "@/components/SectionEyebrow";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: "Personvern",
   description: "Hvordan Puzl behandler personopplysninger fra kontaktskjemaet.",
 };
 
+const breadcrumbs = breadcrumbJsonLd([
+  { name: "Hjem", path: "/" },
+  { name: "Personvern", path: "/personvern" },
+]);
+
 export default function PersonvernPage() {
   return (
     <>
+      <JsonLd data={breadcrumbs} />
       <main className="flex-1 px-6 pt-32 pb-28 sm:pt-36">
         <article className="mx-auto max-w-[70ch]">
           <SectionEyebrow label="Personvern" />
