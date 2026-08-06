@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import SectionEyebrow from "./SectionEyebrow";
+import GrainlineMark from "./GrainlineMark";
 
 // DRAFT — describes an actual commercial/pricing model, not just marketing
 // copy. Needs review/confirmation against the real terms before shipping as
@@ -23,6 +24,13 @@ const PUZL_PATH_LENGTH = 320;
 // the frame before the axis ends, reading as "keeps growing, unbounded."
 const SAAS_PATH =
   "M20,195 C90,188 140,168 175,140 C210,108 230,60 250,15 C258,-5 266,-25 274,-55";
+
+const USPS = [
+  "Skreddersydd system",
+  "Ingen løpende kostnader",
+  "Du eier systemet",
+  "Service og vedlikehold inkludert",
+];
 
 function CostAxis() {
   return (
@@ -56,8 +64,10 @@ export default function PricingModel() {
           Du betaler én gang, ikke hver måned
         </h2>
         <p className="mt-4 max-w-[640px] text-[16px] leading-[1.7] text-[var(--ink-45)]">
-          De fleste AI- og SaaS-verktøy er løpende kostnader som vokser år for år. Slik
-          ser forskjellen ut over tid.
+          De fleste AI- og SaaS-verktøy er en løpende kostnad som vokser år for år, for
+          ett eller flere generiske verktøy du aldri eier. Hos Puzl betaler du kun én
+          gang for et skreddersydd system, uten løpende kostnader. Vi står for service
+          og vedlikehold, slik at du kan fokusere på vekst.
         </p>
 
         <div className="mt-14 grid grid-cols-1 gap-14 sm:grid-cols-2 sm:gap-0">
@@ -81,8 +91,8 @@ export default function PricingModel() {
               />
             </svg>
             <p className="mt-5 text-[14.5px] leading-[1.6] text-[var(--ink-45)]">
-              Løpende abonnement. Kostnaden fortsetter å øke år etter år, uten at du
-              noensinne eier løsningen.
+              Generiske SaaS-løsninger har løpende abonnement. Kostnaden fortsetter å
+              øke år etter år, uten at du noensinne eier løsningen.
             </p>
           </div>
 
@@ -106,19 +116,21 @@ export default function PricingModel() {
                 style={{ "--dash": PUZL_PATH_LENGTH } as CSSProperties}
               />
             </svg>
-            <p className="mt-5 text-[14.5px] leading-[1.6] text-ink">
-              Én betaling for systemet. Kostnaden flater ut med én gang, og deretter er
-              det ditt.
+            <p className="mt-5 text-[14.5px] leading-[1.6] text-[var(--ink-45)]">
+              Med et skreddersydd system fra Puzl betaler du kun én gang, uten å uroe
+              deg for service og vedlikehold.
             </p>
           </div>
         </div>
 
-        <p className="mt-14 max-w-[680px] text-[16px] leading-[1.7] text-[var(--ink-45)]">
-          Du betaler én gang for systemet, og vi følger opp med support og vedlikehold
-          som en del av leveransen, uten løpende kostnader. Over tid blir dette
-          betydelig rimeligere enn å leie flere generiske verktøy, samtidig som
-          løsningen er skreddersydd akkurat til dine systemer.
-        </p>
+        <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-[var(--line)] pt-10 sm:grid-cols-4">
+          {USPS.map((usp) => (
+            <div key={usp} className="flex items-center gap-2.5">
+              <GrainlineMark size={16} className="shrink-0 text-[var(--chalk)]" />
+              <span className="text-[14.5px] font-medium text-ink">{usp}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
