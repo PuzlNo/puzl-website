@@ -10,6 +10,7 @@
 import { services } from "@/lib/services";
 import { pillars, experience } from "@/lib/about";
 import { getAllPosts, getReadingTimeMinutes } from "@/lib/posts";
+import { pages, type PageDescriptor } from "@/lib/pages";
 import { SITE_URL } from "@/lib/structured-data";
 
 /** A single searchable unit of site content. */
@@ -73,27 +74,20 @@ function toPlainText(mdx: string): string {
     .trim();
 }
 
-/** Static descriptors for pages that hold no card-shaped content of their own. */
-const staticPages: IndexEntry[] = [
-  {
-    id: "page:kontakt",
-    kind: "page",
-    title: "Kontakt",
-    path: "/kontakt",
-    summary:
-      "Kontaktskjema og kontaktinformasjon for Puzl. E-post: hei@puzl.no. Skjemaet kan også fylles ut av en agent via submit_contact_form-verktøyet.",
-    text: "Kontakt Puzl for å diskutere din neste AI-løsning. Ta kontakt om ditt neste prosjekt, så finner vi ut om vi er riktig match for det du prøver å bygge. E-post hei@puzl.no. LinkedIn: puzlno.",
-  },
-  {
-    id: "page:personvern",
-    kind: "page",
-    title: "Personvernerklæring",
-    path: "/personvern",
-    summary:
-      "Hvordan Puzl behandler personopplysninger sendt inn via kontaktskjemaet.",
-    text: "Personvernerklæring. Puzl samler kun inn det du selv skriver i kontaktskjemaet: navn, e-post, eventuelt telefonnummer og melding. Ingen analyseverktøy, ingen sporing, ingen informasjonskapsler. Opplysningene brukes utelukkende til å svare på henvendelsen, sendes som e-post via Resend, deles ikke med tredjepart og brukes ikke til markedsføring. Du kan be om innsyn eller sletting ved å kontakte hei@puzl.no.",
-  },
-];
+/**
+ * Descriptors for pages whose content has no other structured source. Shared
+ * with /llms.txt via `lib/pages.ts` so the copy is written once.
+ */
+const staticPageSources: PageDescriptor[] = [pages.kontakt, pages.personvern];
+
+const staticPages: IndexEntry[] = staticPageSources.map((page) => ({
+  id: `page:${page.path.replace(/^\//, "")}`,
+  kind: "page" as const,
+  title: page.title,
+  path: page.path,
+  summary: page.description,
+  text: page.searchText ?? page.description,
+}));
 
 export function buildAgentIndex(): AgentIndex {
   const indexedServices: IndexedService[] = services.map((service) => ({
