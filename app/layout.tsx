@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Work_Sans, IBM_Plex_Mono } from "next/font/google";
 import Nav from "@/components/Nav";
 import JsonLd from "@/components/JsonLd";
+import WebMcpTools from "@/components/WebMcpTools";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
 import "./globals.css";
 
@@ -47,6 +48,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-paper text-ink">
         <JsonLd data={organizationJsonLd} />
         <JsonLd data={websiteJsonLd} />
+        <WebMcpTools />
         <Nav />
         {children}
       </body>
