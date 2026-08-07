@@ -19,7 +19,7 @@ export default function Nav() {
         <div className="rounded-full border border-[var(--line)] bg-paper/85 shadow-sm backdrop-blur-md">
           <div className="flex h-14 items-center justify-between px-5 sm:px-6">
             <Link href="/" className="flex items-center" onClick={() => setOpen(false)}>
-              <Image src="/logo.svg" alt="Puzl" width={92} height={24} priority />
+              <Image src="/logo.png" alt="Puzl" width={92} height={24} priority />
             </Link>
 
             <nav className="hidden lg:flex items-center gap-8 font-mono text-[12.5px] text-[var(--ink-70)]">

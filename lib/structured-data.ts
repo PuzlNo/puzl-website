@@ -6,7 +6,7 @@ export const organizationJsonLd = {
   "@type": "Organization",
   name: SITE_NAME,
   url: SITE_URL,
-  logo: `${SITE_URL}/icon.svg`,
+  logo: `${SITE_URL}/icon.png`,
   email: "hei@puzl.no",
   sameAs: ["https://www.linkedin.com/company/puzlno"],
   description:
