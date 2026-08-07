@@ -64,12 +64,42 @@ export function checkRateLimit(key: string, rules: RateLimitRule[]): RateLimitRe
 }
 
 /**
- * Best-effort client identity. Vercel sets `x-forwarded-for`; the leftmost
- * entry is the original client. Falls back to a shared bucket so that a
- * missing header degrades to throttling rather than to no limit at all.
+ * Bucket key shared by every request, used for the global backstop below.
+ */
+export const GLOBAL_KEY = "__global__";
+
+/**
+ * Best-effort client identity.
+ *
+ * TRUST BOUNDARY — read before changing this. These headers are only
+ * trustworthy because Vercel's edge sets them: Vercel *overwrites*
+ * `x-forwarded-for` and refuses to forward external IPs specifically to
+ * prevent spoofing (https://vercel.com/docs/headers/request-headers).
+ * `x-vercel-forwarded-for` is preferred because it still holds Vercel's own
+ * value even when a proxy placed on top of Vercel rewrites `x-forwarded-for`.
+ *
+ * Off Vercel — local `next dev`, a self-hosted build, or any deployment where
+ * an untrusted hop can reach the function directly — every header here is
+ * attacker-controlled, and a caller can mint a fresh bucket per request simply
+ * by varying it. Do not treat per-IP limiting as a security boundary on its
+ * own; the global backstop in the caller is what bounds total damage when this
+ * key is defeated.
  */
 export function clientKey(request: Request): string {
-  const forwarded = request.headers.get("x-forwarded-for");
-  const ip = forwarded?.split(",")[0]?.trim() || request.headers.get("x-real-ip")?.trim();
-  return ip || "unknown";
+  const candidates = [
+    request.headers.get("x-vercel-forwarded-for"),
+    request.headers.get("x-forwarded-for"),
+    request.headers.get("x-real-ip"),
+  ];
+
+  for (const candidate of candidates) {
+    // Vercel delivers a single address here. The leftmost entry is only the
+    // right pick because the value is platform-controlled — if this ever runs
+    // behind an appending proxy, the leftmost entry becomes client-supplied.
+    const ip = candidate?.split(",")[0]?.trim();
+    if (ip) return ip;
+  }
+
+  // No usable header: share one bucket rather than granting an unlimited one.
+  return "unknown";
 }

@@ -1,6 +1,11 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
-import { checkRateLimit, clientKey, type RateLimitRule } from "@/lib/rate-limit";
+import {
+  checkRateLimit,
+  clientKey,
+  GLOBAL_KEY,
+  type RateLimitRule,
+} from "@/lib/rate-limit";
 
 /**
  * Contact form endpoint.
@@ -32,6 +37,19 @@ const RATE_LIMIT_RULES: RateLimitRule[] = [
 ];
 
 /**
+ * Backstop applied across all callers, regardless of client identity.
+ *
+ * The per-IP rules above are only as good as `clientKey`, which trusts headers
+ * that are unspoofable on Vercel but attacker-controlled anywhere else (see the
+ * trust boundary note in lib/rate-limit.ts). Per-IP keying is also weak against
+ * botnets and rotating IPv6 even when the headers are honest. This cap bounds
+ * total outbound email either way. It is set far above any plausible volume of
+ * genuine enquiries for a site this size, so legitimate senders should never
+ * reach it.
+ */
+const GLOBAL_RATE_LIMIT_RULES: RateLimitRule[] = [{ windowMs: 60 * 60_000, max: 20 }];
+
+/**
  * Pragmatic email shape check: one @, no whitespace, a dotted domain. Not
  * RFC 5322 — the authoritative test is whether Puzl's reply arrives, and
  * over-strict patterns reject valid addresses.
@@ -55,11 +73,22 @@ function readField(body: Record<string, unknown>, field: Field): string | null {
 }
 
 export async function POST(request: Request) {
-  const { allowed, retryAfter } = checkRateLimit(clientKey(request), RATE_LIMIT_RULES);
-  if (!allowed) {
+  const perClient = checkRateLimit(clientKey(request), RATE_LIMIT_RULES);
+  if (!perClient.allowed) {
     return NextResponse.json(
       { error: "For mange henvendelser. Prøv igjen om litt." },
-      { status: 429, headers: { "Retry-After": String(retryAfter) } }
+      { status: 429, headers: { "Retry-After": String(perClient.retryAfter) } }
+    );
+  }
+
+  // Checked after the per-client rule so a single noisy sender is turned away
+  // by its own bucket before it can consume the shared allowance.
+  const global = checkRateLimit(GLOBAL_KEY, GLOBAL_RATE_LIMIT_RULES);
+  if (!global.allowed) {
+    console.warn("Contact form global rate limit reached — possible abuse.");
+    return NextResponse.json(
+      { error: "For mange henvendelser akkurat nå. Prøv igjen senere." },
+      { status: 429, headers: { "Retry-After": String(global.retryAfter) } }
     );
   }
 
