@@ -32,8 +32,8 @@ export default function KontaktPage() {
     <>
       <JsonLd data={breadcrumbs} />
       <JsonLd data={contactPageJsonLd} />
-      <main className="flex-1 pt-32 sm:pt-36">
-        <Contact />
+      <main className="flex-1 px-6 pt-32 pb-28 sm:pt-36">
+        <Contact standalone />
       </main>
       <Footer />
     </>

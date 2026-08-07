@@ -7,7 +7,7 @@ import SectionEyebrow from "./SectionEyebrow";
 const fieldClass =
   "border-b border-[var(--ink-25)] bg-transparent px-1 py-2.5 text-[15px] placeholder:text-[var(--ink-25)] outline-none";
 
-export default function Contact() {
+export default function Contact({ standalone = false }: { standalone?: boolean }) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
 
@@ -43,7 +43,10 @@ export default function Contact() {
   }
 
   return (
-    <section id="kontakt" className="border-t border-[var(--line)] px-6 py-28">
+    <section
+      id="kontakt"
+      className={standalone ? undefined : "border-t border-[var(--line)] px-6 py-28"}
+    >
       <div className="mx-auto grid max-w-[1180px] grid-cols-1 gap-14 lg:grid-cols-2">
         <div>
           <SectionEyebrow label="Kontakt" />
