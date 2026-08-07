@@ -5,8 +5,12 @@ import JsonLd from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
-  title: "Personvern",
-  description: "Hvordan Puzl behandler personopplysninger fra kontaktskjemaet.",
+  title: "Personvernerklæring",
+  description:
+    "Hvordan Puzl behandler personopplysninger sendt inn via kontaktskjemaet: hvilke data vi samler, hvordan de brukes, og hvordan du ber om innsyn eller sletting.",
+  alternates: {
+    canonical: "/personvern",
+  },
 };
 
 const breadcrumbs = breadcrumbJsonLd([

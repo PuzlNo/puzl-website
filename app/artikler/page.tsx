@@ -9,8 +9,12 @@ import { getAllPosts, formatReadingTime, truncateForMetaDescription } from "@/li
 import { breadcrumbJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
-  title: "Artikler",
-  description: "Tanker om skreddersydd AI, fra Puzl.",
+  title: "Artikler om skreddersydd AI og automatisering",
+  description:
+    "Artikler fra Puzl om skreddersydd AI, netthandel og automatisering, for virksomheter som vurderer om skreddersøm eller hyllevare passer best for dem.",
+  alternates: {
+    canonical: "/artikler",
+  },
 };
 
 const breadcrumbs = breadcrumbJsonLd([

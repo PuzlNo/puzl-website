@@ -12,9 +12,12 @@ const breadcrumbs = breadcrumbJsonLd([
 ]);
 
 export const metadata: Metadata = {
-  title: "Om oss",
+  title: "Om oss — 15+ års erfaring med AI og netthandel",
   description:
-    "Hvorfor Puzl finnes, og hvordan vi jobber med skreddersydde AI-løsninger.",
+    "15+ års erfaring fra netthandel, kommersiell strategi og systemarkitektur. Tre prinsipper styrer alt vi bygger: systemagnostisk, skreddersydd og kommersiell.",
+  alternates: {
+    canonical: "/om-oss",
+  },
 };
 
 

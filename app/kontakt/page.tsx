@@ -6,7 +6,11 @@ import { breadcrumbJsonLd, SITE_URL } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: "Kontakt",
-  description: "Ta kontakt med Puzl for å diskutere din neste AI-løsning.",
+  description:
+    "Ta kontakt med Puzl for å diskutere din neste AI-løsning, på e-post hei@puzl.no eller via kontaktskjemaet, så finner vi ut om vi er riktig match.",
+  alternates: {
+    canonical: "/kontakt",
+  },
 };
 
 const breadcrumbs = breadcrumbJsonLd([

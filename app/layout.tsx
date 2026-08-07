@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Work_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import Nav from "@/components/Nav";
 import JsonLd from "@/components/JsonLd";
 import WebMcpTools from "@/components/WebMcpTools";
@@ -32,6 +34,9 @@ export const metadata: Metadata = {
   },
   description:
     "Vi bygger AI-løsninger skreddersydd til din bedrift, dine systemer og dine mål.",
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({
@@ -51,6 +56,8 @@ export default function RootLayout({
         <WebMcpTools />
         <Nav />
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

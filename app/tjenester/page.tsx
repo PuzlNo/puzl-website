@@ -7,9 +7,12 @@ import { breadcrumbJsonLd } from "@/lib/structured-data";
 import { services } from "@/lib/services";
 
 export const metadata: Metadata = {
-  title: "Tjenester",
+  title: "Tjenester — AI-agenter for innhold og service",
   description:
-    "Et utvalg av AI-løsningene Puzl bygger og skreddersyr til virksomheten din.",
+    "AI-agenter og -løsninger Puzl skreddersyr: innhold, kundeservice, kunnskapsplattformer, logistikk og markedsføring, tilpasset systemene dere allerede bruker.",
+  alternates: {
+    canonical: "/tjenester",
+  },
 };
 
 const breadcrumbs = breadcrumbJsonLd([
