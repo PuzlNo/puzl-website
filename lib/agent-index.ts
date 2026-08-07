@@ -98,18 +98,24 @@ export function buildAgentIndex(): AgentIndex {
     url: `${SITE_URL}/tjenester`,
   }));
 
-  const indexedArticles: IndexedArticle[] = getAllPosts().map((post) => ({
-    slug: post.frontmatter.slug,
-    title: post.frontmatter.title,
-    summary: post.frontmatter.summary,
-    publishedAt: post.frontmatter.publishedAt,
-    updatedAt: post.frontmatter.updatedAt,
-    author: post.frontmatter.author,
-    tags: post.frontmatter.tags ?? [],
-    readingMinutes: getReadingTimeMinutes(post.content),
-    url: `${SITE_URL}/artikler/${post.frontmatter.slug}`,
-    body: toPlainText(post.content),
-  }));
+  const indexedArticles: IndexedArticle[] = getAllPosts().map((post) => {
+    const faqText = post.frontmatter.faq
+      ?.map((item) => `${item.question} ${item.answer}`)
+      .join(" ");
+
+    return {
+      slug: post.frontmatter.slug,
+      title: post.frontmatter.title,
+      summary: post.frontmatter.summary,
+      publishedAt: post.frontmatter.publishedAt,
+      updatedAt: post.frontmatter.updatedAt,
+      author: post.frontmatter.author,
+      tags: post.frontmatter.tags ?? [],
+      readingMinutes: getReadingTimeMinutes(post.content),
+      url: `${SITE_URL}/artikler/${post.frontmatter.slug}`,
+      body: [toPlainText(post.content), faqText].filter(Boolean).join(" "),
+    };
+  });
 
   const entries: IndexEntry[] = [
     ...indexedServices.map((service) => ({

@@ -5,9 +5,10 @@ import Image, { type ImageProps } from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Footer from "@/components/Footer";
 import ArticleCover from "@/components/ArticleCover";
+import FAQSection from "@/components/FAQSection";
 import JsonLd from "@/components/JsonLd";
 import { getAllSlugs, getPostBySlug, formatReadingTime, truncateForMetaDescription } from "@/lib/posts";
-import { breadcrumbJsonLd } from "@/lib/structured-data";
+import { breadcrumbJsonLd, faqPageJsonLd } from "@/lib/structured-data";
 
 export const dynamicParams = false;
 
@@ -72,7 +73,7 @@ export default async function ArtikkelPage({ params }: Props) {
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
-  const { title, summary, publishedAt, updatedAt, author } = post.frontmatter;
+  const { title, summary, publishedAt, updatedAt, author, faq } = post.frontmatter;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -96,6 +97,7 @@ export default async function ArtikkelPage({ params }: Props) {
     <>
       <JsonLd data={jsonLd} />
       <JsonLd data={breadcrumbs} />
+      {faq && faq.length > 0 && <JsonLd data={faqPageJsonLd(faq)} />}
       <main className="flex-1 px-6 pt-32 pb-28 sm:pt-36">
         <article className="mx-auto max-w-[91ch]">
           <Link
@@ -122,6 +124,8 @@ export default async function ArtikkelPage({ params }: Props) {
           <div className="article-body mt-10">
             <MDXRemote source={post.content} components={mdxComponents} />
           </div>
+
+          <FAQSection faq={faq} />
         </article>
       </main>
       <Footer />

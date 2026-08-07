@@ -1,3 +1,5 @@
+import type { FaqItem } from "@/lib/posts";
+
 export const SITE_URL = "https://puzl.no";
 export const SITE_NAME = "Puzl";
 
@@ -34,6 +36,30 @@ export function breadcrumbJsonLd(items: BreadcrumbItem[]) {
       position: index + 1,
       name: item.name,
       item: `${SITE_URL}${item.path}`,
+    })),
+  };
+}
+
+/**
+ * Note: Google retired the FAQ rich result feature in Search from May 2026
+ * (announced in their May 2026 changelog, docs removed June 2026), so this
+ * no longer produces a Google SERP rich result. Still emitted as valid
+ * schema.org FAQPage markup — other engines (Bing, AI answer/citation
+ * engines relevant to GEO) still consume FAQPage structured data, and it
+ * costs nothing to include alongside BreadcrumbList/BlogPosting on the
+ * same page (distinct @type, no property overlap).
+ */
+export function faqPageJsonLd(faq: FaqItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
     })),
   };
 }

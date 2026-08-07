@@ -186,6 +186,16 @@ export function buildLlmsFullTxt(): string {
       // Article title sits at H3, so its body's H2s become H4s.
       demoteHeadings(post.content.trim(), 2),
       ``,
+      // FAQ is authored as structured frontmatter (single-sourced with
+      // <FAQSection> and the FAQPage JSON-LD), not body Markdown, so it's
+      // rendered here explicitly rather than picked up by demoteHeadings.
+      ...(post.frontmatter.faq?.length
+        ? [
+            `#### Ofte stilte spørsmål`,
+            ``,
+            ...post.frontmatter.faq.flatMap((item) => [`**${item.question}**`, ``, item.answer, ``]),
+          ]
+        : []),
     ]),
   ];
 

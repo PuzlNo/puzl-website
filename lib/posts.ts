@@ -4,6 +4,11 @@ import matter from "gray-matter";
 
 const POSTS_DIR = path.join(process.cwd(), "content", "posts");
 
+export type FaqItem = {
+  question: string;
+  answer: string;
+};
+
 export type PostFrontmatter = {
   title: string;
   /** Full TL;DR key-takeaway summary — single source for the on-page
@@ -19,6 +24,11 @@ export type PostFrontmatter = {
   updatedAt?: string;
   author: string;
   tags?: string[];
+  /** Optional Q&A pairs, single-sourced by <FAQSection>, the FAQPage
+   * JSON-LD, and the llms.txt/agent-index text exports. Omit entirely
+   * for articles with no FAQ content — every consumer treats it as
+   * optional and renders nothing rather than an empty section. */
+  faq?: FaqItem[];
 };
 
 export type Post = {
