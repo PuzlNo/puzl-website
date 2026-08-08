@@ -1,0 +1,81 @@
+---
+title: "ChatGPT kan nå selge produktene dine direkte i samtalen"
+summary: "OpenAI har åpnet for at nettbutikker kan mate produktene sine rett inn i ChatGPT, slik at brukere kan oppdage og sammenligne produkter direkte i samtalen. Mekanismen er nesten identisk med Google Shopping-feeden mange nettbutikker allerede har. Selve kjøpsøyeblikket er derimot i bevegelse: OpenAI trakk seg nylig fra fullført kjøp inne i chatten, mens Google satser stikk motsatt vei. Det som uansett avgjør om du blir anbefalt i det hele tatt, er om produktdataene dine er gode nok."
+slug: "chatgpt-product-feed-selger-produkter-direkte"
+publishedAt: "2026-08-04"
+author: "Puzl"
+tags: ["Agentisk handel", "E-handel"]
+faq:
+  - question: "Hva er en product feed hos OpenAI?"
+    answer: "En strukturert fil med produktdata, som pris, lagerstatus og bilder, som nettbutikker sender til OpenAI slik at ChatGPT kan vise og anbefale produktene direkte i en samtale."
+  - question: "Kan man kjøpe et produkt direkte inne i ChatGPT?"
+    answer: "Noen ganger, men ikke alltid. OpenAI lanserte full kjøpsfullføring i chatten i 2025, men trakk seg fra det i mars 2026 etter lav bruk. Det vanligste mønsteret nå er at ChatGPT håndterer research og sammenligning, mens selve kjøpet ofte fullføres på nettbutikkens egen side."
+  - question: "Er dette det samme som Google Shopping?"
+    answer: "Ikke helt, men mye av grunnlagsarbeidet overlapper. OpenAI støtter faktisk å motta feeden i Google-kompatibelt format, så du slipper å bygge alt fra bunnen av, men spesifikasjonene er ikke identiske, og de fleste ender opp med én masterkatalog de eksporterer tilpassede versjoner fra. Den største forskjellen er uansett hvor anbefalingen vises: Google sin feed mater søkeresultater og Shopping-fanen, OpenAI sin feed mater en samtale i ChatGPT."
+  - question: "Koster det noe å bli vist i ChatGPT sine produktresultater?"
+    answer: "Den organiske feeden er gratis og upåvirket av betaling. Det finnes i tillegg en betalt annonsevariant, driftet gjennom ChatGPT Ads Manager, for de som vil kjøpe seg synlighet i tillegg."
+  - question: "Er dette bare noe OpenAI holder på med?"
+    answer: "Nei. Google bygger en tilsvarende protokoll (UCP) til sine egne AI-flater, og satser faktisk motsatt vei av OpenAI: der OpenAI trakk seg fra å eie selve kjøpsøyeblikket, satser Google på å eie nettopp det."
+  - question: "Hva avgjør om produktene mine blir anbefalt av en AI-agent?"
+    answer: "I hovedsak kvaliteten og fullstendigheten på produktdataene dine. Mangler eller utdatert informasjon i feeden gjør at produktet ikke vurderes i det hele tatt, uansett hvor godt det egentlig er, og uansett hvor kjøpet til slutt fullføres."
+  - question: "Er det nok å bare sende inn de påkrevde feltene i feeden?"
+    answer: "Det er nok til å finnes, men ikke nødvendigvis nok til å bli anbefalt til riktig kunde. Jo mer presist og detaljert produktet er beskrevet, jo bedre kan en AI-agent matche det mot akkurat det brukeren spør etter, i stedet for å hoppe over det til fordel for en konkurrent med mer komplette data."
+  - question: "Er det for sent å henge med på dette?"
+    answer: "Nei, tvert imot. Anslag tyder på at færre enn 2 prosent av små og mellomstore bedrifter har forberedt produktdataene sine for dette ennå, samtidig som infrastrukturen rundt allerede er produksjonsklar."
+---
+
+## En kunde spør ChatGPT, ikke Google
+
+Tenk deg at noen skriver til ChatGPT: "Jeg trenger nye løpesko, budsjett rundt 1500 kroner." I stedet for å få en liste med lenker de selv må klikke seg gjennom, kan ChatGPT nå vise faktiske produkter direkte i samtalen, med bilde og pris. Brukeren kan sammenligne noen alternativer og stille oppfølgingsspørsmål, før de enten fullfører kjøpet på stedet eller blir sendt videre til nettbutikken for å avslutte det, avhengig av hvordan akkurat den butikken har satt opp løsningen.
+
+Dette er kjernen i det OpenAI har bygget gjennom det de kaller en product feed, altså en strukturert produktkatalog nettbutikker sender direkte til OpenAI.
+
+## Slik fungerer det i praksis
+
+Nettbutikken sender en fil med produktdata, tittel, pris, lagerstatus, bilder og en del tekniske felter, til et endepunkt hos OpenAI. Filen oppdateres jevnlig, gjerne daglig, slik at prisen og lagerstatusen ChatGPT viser faktisk stemmer med virkeligheten.
+
+Det finnes to spor. Det ene er en ren, organisk feed: produktene vises fordi dataene er relevante og fullstendige, ikke fordi noen har betalt for plasseringen. Det andre er en betalt annonsevariant, som [OpenAI rullet ut med egen kampanjeautomatisering i mai 2026](https://www.paz.ai/blog/openai-chatgpt-product-feed-ads-100-sku-catalog-gate), og som nå driftes gjennom en dedikert ChatGPT Ads Manager.
+
+Selve betalingsmekanismen som gjør in-chat-kjøp mulig når butikken velger å tilby det, kalles [Agentic Commerce Protocol (ACP)](https://developers.openai.com/commerce/specs/spec), utviklet av OpenAI sammen med Stripe. Der den brukes, tar [OpenAI et transaksjonsgebyr på 4 prosent av salget](https://opascope.com/insights/ai-shopping-assistant-guide-2026-agentic-commerce-protocols/).
+
+## Du kjenner allerede mekanikken fra Google Shopping
+
+Hvis nettbutikken din noen gang har satt opp en produktfeed til Google Shopping gjennom Google Merchant Center, kjenner du allerede prinsippet. Du sender en strukturert fil med de samme feltene, tittel, pris, lagerstatus, bilder og en produkt-ID, til en mottaker som løpende oppdaterer og viser produktene dine et sted brukeren allerede leter.
+
+Forskjellen ligger ikke primært i selve datainnsamlingsjobben, men i hvor anbefalingen dukker opp. [OpenAI sin egen utviklerdokumentasjon bekrefter at de aksepterer feeden i Google-kompatibelt format](https://developers.openai.com/commerce/specs/file-upload/products), så mye av grunnlagsarbeidet kan gjenbrukes direkte. Spesifikasjonene er derimot ikke identiske. OpenAI sin feed slår sammen flere ting Google holder i separate feeder (produkt, pris, lager, anmeldelser) til én samlet struktur, og forventer noe rikere data enn Google sitt minimumskrav. I praksis betyr det at de fleste holder én godt strukturert masterkatalog internt, og eksporterer tilpassede versjoner derfra til hver plattform, i stedet for å sende nøyaktig samme rå fil to steder. Selve Google Shopping-feeden din mater Google sin tradisjonelle søkeresultatside og Shopping-fanen. OpenAI sin product feed mater en samtale i ChatGPT i stedet. Det som er nytt er ikke arbeidsmåten. Det er hvor mange forskjellige mottakere den samme underliggende jobben nå må leveres til.
+
+## To motsatte veddemål samtidig
+
+Verdt å vite før man går videre: [OpenAI lanserte faktisk full kjøpsfullføring inne i ChatGPT allerede i september 2025 (Instant Checkout), men trakk seg fra det i mars 2026](https://www.forbes.com/sites/jasongoldberg/2026/03/10/why-openais-checkout-retreat-spells-trouble-for-its-commerce-strategy/) etter lav bruk. Kun rundt 30 selgere på Shopify gikk noensinne live, og Walmart målte konvertering inne i chatten som omtrent tre ganger dårligere enn å sende brukeren videre til egen side. [OpenAI sin egen forklaring var at funksjonen flyttes over til "Apps", der kjøp kan skje mer sømløst](https://www.digitalapplied.com/blog/ai-agentic-commerce-discover-in-ai-buy-on-site-2026), i stedet for at det droppes helt.
+
+Det gjør produktfeeden enda mer sentral, ikke mindre. Mønsteret som har festet seg er "oppdag i AI, kjøp på egen side": ChatGPT gjør stadig mer av research- og sammenligningsjobben, men sender ofte brukeren videre for å fullføre selve kjøpet.
+
+Google satser på nøyaktig motsatt hest samtidig. Der OpenAI trakk seg unna å eie selve transaksjonen, akselererer Google inn i den.
+
+## Ikke bare OpenAI
+
+Det som gjør dette til mer enn én plattforms enkeltinitiativ, er at [Google bygger noe tilsvarende, utviklet sammen med blant andre Shopify, Etsy, Walmart og Target](https://www.emarketer.com/content/google-brings-checkout-ai-mode-races-rivals-agentic-commerce). Deres protokoll heter Universal Commerce Protocol (UCP), og driver det de kaller en Universal Cart, en handlekurv som skal fungere på tvers av Google sine egne AI-flater, med mål om å ta brukeren fra "jeg er interessert" til "jeg har kjøpt det" uten å forlate samtalen. Dette er ikke en plan som har stoppet opp: [Google lanserte Universal Cart på egen I/O-konferanse i mai 2026, og har siden utvidet UCP-basert kjøp til flere land og nye kategorier som hotellbooking og matlevering](https://www.getpassionfruit.com/blog/google-i-o-2026-every-announcement-and-what-it-means-for-seo-and-geo). To store aktører som satser i hver sin retning på nøyaktig samme problem samtidig, er normalt et tydelig tegn på at ingen har funnet fasiten ennå, ikke at spørsmålet er uviktig.
+
+Betalingssiden av dette har også beveget seg raskere enn mange har fått med seg. [Mastercard bekrefter at samtlige av deres europeiske kortutstedere nå er aktivert på nettverksnivå for det som kalles Agent Pay](https://www.mastercard.com/news/europe/en/perspectives/en/2026/europe-is-building-the-foundations-for-trusted-agentic-commerce/), og i juni 2026 gjennomførte [Worldline og ING, sammen med Mastercard, den første reelle agent-transaksjonen i Europa kjørt i faktisk produksjon](https://www.mastercard.com/news/europe/en/newsroom/press-releases/en/2026/worldline-ing-and-mastercard-complete-a-live-end-to-end-european-agentic-payment-in-production/), ikke bare i et kontrollert testmiljø. Dette er ikke lenger en demo på en konferanse. Det er infrastruktur som faktisk kan flytte penger i dag.
+
+## Hvorfor produktdataene dine avgjør om du finnes
+
+Det viktigste å forstå er hva som faktisk styrer om et produkt blir anbefalt. Når en AI-agent skal foreslå noe å kjøpe på vegne av en bruker, henter den ikke informasjon fra en annonsekampanje eller en fancy produktside. Den henter fra selve produktfeeden. Er dataene ufullstendige, utdaterte, eller mangler nødvendige felter, finnes produktet rett og slett ikke i vurderingen, uansett hvor bra det egentlig er eller hvor pent nettbutikken ser ut for et menneske.
+
+Det er en reell endring i hva som avgjør salg. Der det tidligere handlet mye om hvordan produktsiden så ut, det visuelle, teksten, tilliten et menneske følte ved å se på den, handler dette i økende grad om noe mer kjedelig og mer avgjørende: har du strukturert, fullstendig og oppdatert data et annet system faktisk kan lese og stole på.
+
+[Tall fra Shopify sin egen Q1 2026-rapportering](https://www.shopify.com/enterprise/blog/ai-search-insights) viser hvor mye dette allerede monner. Bestillinger som kom via AI-henvisninger vokste rundt 13 ganger fra året før, mens besøkstallene fra samme kilde bare vokste rundt 8 ganger. AI-trafikken konverterer altså vesentlig bedre enn vanlig trafikk, ikke bare mer av den.
+
+## Det handler ikke bare om å finnes, men om å bli matchet riktig
+
+Å finnes i det hele tatt er én ting. Å bli anbefalt til riktig kunde på riktig tidspunkt er noe annet, og det avgjøres av hvor mye en AI-agent faktisk klarer å forstå om produktet, ikke bare om det er der.
+
+Forskjellen mellom en vag og en detaljert produktbeskrivelse illustrerer det godt. "Ryggsekk av god kvalitet, perfekt til alle eventyr" gir en AI-agent nesten ingenting å jobbe med. Den kan ikke matche den mot noen som spør etter "en 45-liters fjellryggsekk med bærbar-lomme til en 15-tommers laptop". "45-liters teknisk fjellryggsekk med polstret bærbar-lomme, vanntett bunn og hoftebelte for tunge laster" gir derimot AI-en akkurat de konkrete egenskapene den trenger for å koble produktet til det spesifikke behovet. Samme produkt, helt forskjellig sjanse for å bli anbefalt til rett person.
+
+Konsekvensen av å ikke gjøre denne jobben er ikke teoretisk. [I én dokumentert produksjonsgjennomgang av en amerikansk nettbutikk-katalog ble over 40 prosent av varelageret rett og slett ignorert av AI-handleassistenter](https://www.toolient.com/2026/03/product-feed-optimization-ai-agents.html), ikke fordi produktene var dårlige, men fordi feeden manglet strukturerte attributter og stabile identifikatorer AI-en kunne lese pålitelig. Et annet funn som går igjen i flere gjennomganger av feltet: [forskjellen mellom å bli anbefalt først og å bli anbefalt som nummer åtte handler ofte om hvor komplette dataene er, ikke om produktet faktisk er bedre](https://www.efulfillmentservice.com/2026/01/the-complete-product-data-optimization-guide-for-googles-ai-shopping-2026/).
+
+## Vinduet er fortsatt åpent
+
+Til tross for veksten er dette fortsatt tidlig. [Analysebyrået TJ Digital anslår at færre enn 2 prosent av små og mellomstore bedrifter](https://tjrobertson.com/product-feed-chatgpt-google-ai-shopping/) har gjort noe med produktfeed-klargjøring i det hele tatt. Det er en uvanlig kombinasjon: en teknologi som allerede flytter reelle penger gjennom produksjonsklar infrastruktur, samtidig som nesten ingen har forberedt seg på den ennå.
+
+Det pleier ikke å vare lenge.
