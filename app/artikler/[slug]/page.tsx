@@ -8,7 +8,7 @@ import ArticleCover from "@/components/ArticleCover";
 import FAQSection from "@/components/FAQSection";
 import JsonLd from "@/components/JsonLd";
 import { getAllSlugs, getPostBySlug, formatReadingTime, truncateForMetaDescription } from "@/lib/posts";
-import { breadcrumbJsonLd, faqPageJsonLd } from "@/lib/structured-data";
+import { blogPostingJsonLd, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/structured-data";
 
 export const dynamicParams = false;
 
@@ -75,17 +75,7 @@ export default async function ArtikkelPage({ params }: Props) {
 
   const { title, summary, publishedAt, updatedAt, author, faq } = post.frontmatter;
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: title,
-    description: summary,
-    datePublished: publishedAt,
-    dateModified: updatedAt ?? publishedAt,
-    author: { "@type": "Organization", name: author },
-    publisher: { "@type": "Organization", name: "Puzl" },
-    mainEntityOfPage: `https://puzl.no/artikler/${slug}`,
-  };
+  const jsonLd = blogPostingJsonLd({ slug, title, summary, publishedAt, updatedAt, author });
 
   const breadcrumbs = breadcrumbJsonLd([
     { name: "Hjem", path: "/" },
